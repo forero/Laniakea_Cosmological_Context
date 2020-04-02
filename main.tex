@@ -71,22 +71,40 @@ In all those cases Laniakea is found in the tail of the distribution, placing it
 \section{Introduction}
 % La introduccion y el abstract es lo ultimo que se escribe.
 
-This supercluster is defined as a network of structures (formed by galaxies) that have convergent velocities towards a large attractor. This supercluster is called Laniakea. It has a mass of about $10^{17}$ Solar masses ($M_{\odot}$) and its semimajor axis has an approximate length of 160 Mpc. 
+In 2014 astronomers used a map  of peculiar velocities of galaxies to
+define the Laniakea supercluster of galaxies
+\citep{2014Natur.513...71T}.  
+Their main input was the Cosmicflows-2 catalog of distances and radial
+velocities that provide them with coverage of distances up to Mpc. 
+From these data they After performing a Wiener fiter reconstruction of
+3-dimensional velocities.
+Then they define Laniakea as  a region within walls of divergence velocity.  
+Laniakea thus represents is a region of inflowing peculiar velocities
+that include the Milky Way. 
+
+Laniakea has a very isotropic shape. 
+Its radius is approximately $160$ Mpc and encompasses a mass of
+$\approx 10^{17}$ \Msun.
+
 
 
 \section{Cosmological N-body data}
 
-We use public data from the Abacus Cosmos project. 
-We focus on the simulations with $720$ \Mpch on a side simulated with $1440^3$
-particles in a background cosmology following Planck 2015 parameters, although a set of different simulations will be analyzed in order to determine the relevance of cosmologiacl parameters, and spatial resolution
-of the gravity solver of $41$ kpc/$h$.
-This correspond to a DM particle mass of $\sim 1 \times 10^{10}$\Msun, 
-or a maximum circular velocity of $V_{\rm circ}=50$ kms
-We use 20 different realization of such a volume that only differ on the initial seed to create the phases in the initial conditions.
-
+We use data from the dark matter only cosmological simulations with
+$720$ \Mpch on a side from the Abacus Cosmos project.  
+These boxes were simulated with $1440^3$ particles in a background
+cosmology following Planck 2015 parameters, although a set of
+different simulations will be analyzed in order to determine the
+relevance of cosmological parameters.
+The resolution of these simulations correspond to a DM particle mass
+of $\sim 1 \times 10^{10}$\Msun.
 We use the Friend-of-Friends catalogs at redshift $z=0.1$.
-We make two different cuts on the maximum circular velocity $v_{\rm circ}>200$ kms and $v_{\rm circ}$ kms to gauge the impact of having different tracers.
-
+The halos included in those catalogs have a lower mass bound of 
+maximum circular velocity of $V_{\rm circ}=50$ \kms.
+In our case we only use halos with maximum circular velocity larger
+than $300$ \kms.
+Changing that limit down to $200$ \kms does not significantly affect
+the results we report here.
 
 \subsection{Grid Construction}  
 
