@@ -15,15 +15,17 @@
 \newcommand{\Mpch}{\,{\rm Mpc}\,\ifmmode h^{-1}\else $h^{-1}$\fi}
 \newcommand{\kpch}{\,{\rm kpc}\,\ifmmode h^{-1}\else $h^{-1}$\fi}
 \newcommand{\kpc}{\,{\rm kpc}\,}
+\newcommand{\kms}{\,{\rm km}\ s$^{-1}$\,}
 
 %%%%%%%%%%%%%%%%%%% TITLE PAGE %%%%%%%%%%%%%%%%%%%
-\title[Laniakea in context]{The Laniakea supercluster in a cosmological context}
-\author[Barrera et al.]{
+\title[Laniakea in context]{The size of the Laniakea supercluster in a
+cosmological context}
+\author[Pe\~naranda-Rivera et al.]{
 \parbox[t]{\textwidth}{
     {J. D. Pe\~naranda-Rivera $^1$,} 
-    {David L.  Paipa-Le\'on$^{2}$,}
-    {Sergio Hern\'andez-Charpak$^3$,}\\
-    {Jaime E. Forero-Romero $^{2}$}
+    {D. L.  Paipa-Le\'on$^{2}$,}
+    {S. Hern\'andez-Charpak$^3$,}\\
+    {J. E. Forero-Romero $^{2}$}
 }
 \\\\
 $^{1}$ Departamento de F\'isica, Universidad de los Andes, Cra. 1
@@ -47,13 +49,21 @@ $^{2}$ Switzerland\\
 %%%%%====MYMARK========
 \maketitle
 \begin{abstract}
-Galaxy superclusters can be defined as regions of converging galaxy velocity flows.
-Such structures have quantifiable properties such as mass, volume and shape.
+Galaxy superclusters can be defined as regions of converging galaxy
+velocity flows. 
+Such structures have quantifiable properties such as mass, volume and
+shape. 
 The most precise quantification of such an object has been done on our local supercluster, Laniakea. 
-In this work the properties of Laniakea are compared to the expectations from a Lambda Cold Dark Matter Universe.
-Cosmological N-body simulations are used in order to find cosmic flow fields of dark matter halos and find the superclusters using a watershed algorithm.
-In addition, the distributions of volume, mass and shape of the superclusters found in those simulations are quantified and compared with known values for Laniakea.
-In all those cases Laniakea is found in the tail of the distribution, placing it as an atypical object in a cosmological context. 
+In this work the properties of Laniakea are compared to the
+expectations from a Lambda Cold Dark Matter Universe. 
+Cosmological N-body simulations are used in order to find cosmic flow
+fields of dark matter halos and find the superclusters using a
+watershed algorithm. 
+In addition, the distributions of volume, mass and shape of the
+superclusters found in those simulations are quantified and compared
+with known values for Laniakea. 
+In all those cases Laniakea is found in the tail of the distribution,
+placing it as an atypical object in a cosmological context.  
 \end{abstract}
 
 \begin{keywords}
@@ -88,7 +98,9 @@ $\approx 10^{17}$ \Msun.
 
 
 
-\section{Cosmological N-body data}
+\section{Numerical Setup}
+
+\subsection{Cosmological N-body data}
 
 We use data from the dark matter only cosmological simulations with
 $720$ \Mpch on a side from the Abacus Cosmos project.  
@@ -106,48 +118,55 @@ than $300$ \kms.
 Changing that limit down to $200$ \kms does not significantly affect
 the results we report here.
 
-\subsection{Grid Construction}  
+\subsection{Interpolation, smoothing and divergence calculation}  
 
-The simulation volume was segmented into a cubic gride of side $N_{side}=360$, 
-which corresponds to a cubic cell size of $L_{cell}=2$ Mpc/h.
-Following \cite{2014Natur.513...71T} the velocity of each DM halo was interpolated onto the
-grid using a Cloud-In-Cell (CIC) scheme. 
-This CIC grid is then convolved with a three dimensional gaussian of scale $\sigma_s$.
-Different values for this scale were used in order to visualize the effects of the interpolation. However, the value of $10$ Mpc/h is close to the nominal value for the equivalent spatial resolution
-in the Cosmic Flows studies that led to the delimitation of Laniakea. As a result, the value of $\sigma_s$ selected to be used in the watershed algorithm was $10$ Mpc/h. It is convenient to stlished a new variable, which will be used often in this paper, as $\sigma_{Vox}$ = $\sigma_s$/$L_{cell}$, which will represent a dimensionless gaussian smoothing scale. 
-Finally, we compute the divergence of the interpolated and smoothed velocity field using a
-finite difference scheme; with this choice high density regions should have low negative
-values for the divergence.
+We interpolate dark matter halo velocities into a cubic grid of side
+$N_{side}=360$, which corresponds to a cubic cell size of $L_{cell}=2$
+\Mpch on a side.
+This resolution is deliberately smaller than the nominal resolution
+used in the Wiener filter reconstruction performed on the
+CosmicFlows-2 data used to define Laniakea.
+
+Following \cite{2014Natur.513...71T} the velocity of each DM halo 
+We usa a a Cloud-In-Cell (CIC) scheme to interpolate the velocities on
+the grid.
+This CIC grid is then convolved with a 3-dimensional gaussian of
+scale $\sigma_s$. 
+The objective of this smoothing is lowering the effective resolution
+of the velocity field to mimick the limited resolution from the Wiener
+filter reconstrution.
+
+We use four different values for $\sigma_s=6, 10, 14, 20$ in order to explore its effects
+on the number and characteristics on the superclusters we find.
+We explore a range of values close to the typically quoted equivalente
+spatial resolution of the studies Wiener Filter studies on
+CosmicFlows-2 data.
+Finally, from the interpolated velocity field we compute the
+divergence useing a three point centered finite difference scheme.
 
 
-\subsection{Finding superclusters}
-\label{sec:INTROWatershed}
+\subsection{Watershed Supercluster-Finder}
+
 
 We use watershed segmentation to define the superclusters.
 This methods segments a scalar field into disjoints groups \citep{BeucherWatershed1979}.
-Our implementation works as follows . 
+Our implementation works as follows. 
 We sweep the cells in the divergence grid from the lowest values to the highest, i.e. from
 the high density regions with converging flows to the lowest density regions with divergent
 flows.
 For the $i$-th cell under consideration we check whether its 28 neighbors have already been assigned to a group. 
-If all the neighbors are unassigned, then this $i$-th cell starts a new group; if the majority of already assigned cells belongs to the $n$-th group, then this cell belongs to that group. 
-At the end of the sweep all cells have been assigned to a group.
-In all our calculations we take periodical boundary conditions into account. 
-We highlight that this algorithms do not have free parameters based either on divergence, density or distance thresholds.
-Finally, for each supercluster we compute its volume together with the eigenvalues and eigenvectors of the inertia tensor.
+If all the neighbors are unassigned, then this $i$-th cell starts a
+new group; if the majority of already assigned cells belongs to the
+$n$-th group, then this cell belongs to that group.  
+At the end of the sweep all cells have been assigned to a group. 
+In all our calculations we take periodical boundary conditions into
+account.  
+We highlight that once the divergence field is provided this algorithm
+does not have free parameters based either on divergence, density or distance thresholds. 
+Finally, for each supercluster we compute its volume.
 
 
 \section{Results}
-
-
-
-
-\begin{figure}
-    \centering
-    \includegraphics[width=240pt]{initial_distribution.pdf}
-    \caption{Initial distribution for the speed magnitude of every mass particle, as given by the Abacus Cosmos simulation. This analysis is done without making any Gaussian filter over the speed fields.}
-    \label{fig:initial_distribution}
-\end{figure}
 
 
 \subsection{Gaussian Convolution and Sigma relevance}
