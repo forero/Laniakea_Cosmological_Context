@@ -18,14 +18,13 @@
 \newcommand{\kms}{\,{\rm km}\ s$^{-1}$\,}
 
 %%%%%%%%%%%%%%%%%%% TITLE PAGE %%%%%%%%%%%%%%%%%%%
-\title[Laniakea in context]{The size of the Laniakea supercluster in a
-cosmological context}
+\title[Laniakea in context]{Laniakea supercluster in a cosmological context}
 \author[Pe\~naranda-Rivera et al.]{
 \parbox[t]{\textwidth}{
     {J. D. Pe\~naranda-Rivera $^1$,} 
-    {D. L.  Paipa-Le\'on$^{2}$,}
-    {S. Hern\'andez-Charpak$^3$,}\\
-    {J. E. Forero-Romero $^{2}$}
+    {D. L.  Paipa-Le\'on$^{1}$,}
+    {S. Hern\'andez-Charpak$^{1,2}$,}\\
+    {J. E. Forero-Romero $^{1}$}
 }
 \\\\
 $^{1}$ Departamento de F\'isica, Universidad de los Andes, Cra. 1
@@ -227,6 +226,35 @@ Finally, for each supercluster we compute its volume.
     \label{fig:Nclusters}
 \end{figure*}
 
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=435pt]{mass_vol_planck.pdf}
+    \caption{Distributions of mass, volume and density for the
+      superclusters found with $\sigma_{Vox} = 5$ using the first 5
+      Abacus Cosmos simulations with Planck parameters. A graph of
+      mass vs volume in the first simulation of the Abacus Cosmos
+      catalog is also shown. Notice how, Laniakea is at the edges of
+      the distributions and in an atypical region of the density
+      histogram. } 
+    \label{fig:HISTVMD1}
+\end{figure*}
+
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=435pt]{mass_vol_different.pdf}
+    \caption{Distributions of mass, volume and density for the
+      superclusters found with $\sigma_{Vox} = 5$ using the first
+      Abacus Cosmos simulation with Planck parameters and the 4
+      simulations associated to extreme values of $\sigma_8$ and
+      $\Omega_m$. A graph of mass vs volume in the first simulation of
+      the Abacus Cosmos catalog is also shown. Notice how, Laniakea is
+      at the edges of the distributions and in an atypical region of
+      the density histogram. } 
+    \label{fig:HISTVMD2}
+\end{figure*}
+
 \section{Results}
 
 \subsection{Influence of the smoothing scale}
@@ -308,42 +336,67 @@ When defining different $\sigma_{Vox}$, it is expected that prominent fluctuatio
 
 \subsection{Supercluster characterization}
 
-As presumed, the borders of the grupus found by the algorithm are not smooth and it is a varied \emph{Zoo} of shapes and sizes. Now we have a catalog of superclusters in the simulation, with definite volumes in the grid and, therefore, with a mass that is also defined. In particular, the values of mass and volume of the structures found by the algoritm are expected to give us information about how the distribution of mass in space is being modified. Therefore, superclusters with larger mass and volume should have more mass coming together in it. As a result, bigger values of negative divergence have to be observed in these structures. This behaviour is presented in figure \ref{fig:min_div} where it is shown how higher mass and volume superclusters tend to have lower minimum values the divergence field, as expected from its definition of regions of converging galaxy flows. 
+As presumed, the borders of the grupus found by the algorithm are not
+smooth and it is a varied \emph{Zoo} of shapes and sizes. Now we have
+a catalog of superclusters in the simulation, with definite volumes in
+the grid and, therefore, with a mass that is also defined. In
+particular, the values of mass and volume of the structures found by
+the algoritm are expected to give us information about how the
+distribution of mass in space is being modified. Therefore,
+superclusters with larger mass and volume should have more mass coming
+together in it. As a result, bigger values of negative divergence have
+to be observed in these structures. This behaviour is presented in
+figure \ref{fig:min_div} where it is shown how higher mass and volume
+superclusters tend to have lower minimum values the divergence field,
+as expected from its definition of regions of converging galaxy flows.  
 
 
-\begin{figure*}
-    \centering
-    \includegraphics[width=240pt]{min_div_volume.pdf}
-    \includegraphics[width=240pt]{min_div_mass.pdf}
-    \caption{Relation of the minimum value of the divergence field in a supercluster according to its mass and its volume. Both panels show that higher mass and volume superclusters tend to have lower minimum values the divergence field, as expected from its definition of regions of converging galaxy flows. This analysis was realised using a gaussian smoothing scale of $\sigma_{Vox}$ = 5 and a simulation which uses Planck 2015 parameters.}
-    \label{fig:min_div}
-\end{figure*}
-
-
-Each voxel already belongs to a group as well as the mass it contains and it is easy to extract new information from mass and volume statistics. By extension, these data also allow conclusions to be drawn about density. In order to achieve this analysis correctly two different sets of simulations where considered. First, we consider a set of five simulations of the Abacus Cosmos 720box\_planck catalog. Second, we vary the values of the cosmological parameters used in the simulations to see how this affects to the mass, volume and density distributions of the superclusters found. Specifically, extreme values of $\Omega_M$ and $\sigma_8$ are taken since these parameters could cause a significant difference in the distributions of the desired magnitudes. In this way, the higher and lower values of $\Omega_M$ and $\sigma_8$ in the AbacusCosmos\_720box catalog are identified and the simulations associated to those values added to our data set. In addition, a reference simulation, which was taken from the Abacus Cosmos 720box\_planck catalog, is added to this data set.
+Each voxel already belongs to a group as well as the mass it contains
+and it is easy to extract new information from mass and volume
+statistics. By extension, these data also allow conclusions to be
+drawn about density. In order to achieve this analysis correctly two
+different sets of simulations where considered. First, we consider a
+set of five simulations of the Abacus Cosmos 720box\_planck
+catalog. Second, we vary the values of the cosmological parameters
+used in the simulations to see how this affects to the mass, volume
+and density distributions of the superclusters found. Specifically,
+extreme values of $\Omega_M$ and $\sigma_8$ are taken since these
+parameters could cause a significant difference in the distributions
+of the desired magnitudes. In this way, the higher and lower values of
+$\Omega_M$ and $\sigma_8$ in the AbacusCosmos\_720box catalog are
+identified and the simulations associated to those values added to our
+data set. In addition, a reference simulation, which was taken from
+the Abacus Cosmos 720box\_planck catalog, is added to this data set. 
 
 \subsubsection{Mass, Volume and density}
 
-The Gaussian smoothing process, as well as the watershed algorithm, are applied to the two data sets presented above.  Once we have the superclusters found by the algorithm for each simulation, a comparison between Laniakea and the superclusters identified can be made. Figures \ref{fig:HISTVMD1} and \ref{fig:HISTVMD2} show how normal is Laniakea when we contrast it with the set of simulated superclusters. 
-Figure \ref{fig:HISTVMD1} presents the distributions of mass, volume and density for each simulation of the first data set (only planck parameters simulations) and the respective value for Laniakea of each one of these variables. An atypical behaviour is observed as Laniakea is at the edges of the distributions and in an atypical region of the density histogram. In particular, Laniakea is found to be much more large, massive and dense than most of the superclusters identified by the algoritm. In addition, figure \ref{fig:HISTVMD1} exhibit a mass vs volume diagram in which the atypical behaviour is observed, as our supercluster is found out of the central group of superclusters.
+The Gaussian smoothing process, as well as the watershed algorithm,
+are applied to the two data sets presented above.  Once we have the
+superclusters found by the algorithm for each simulation, a comparison
+between Laniakea and the superclusters identified can be made. Figures
+\ref{fig:HISTVMD1} and \ref{fig:HISTVMD2} show how normal is Laniakea
+when we contrast it with the set of simulated superclusters.  
+Figure \ref{fig:HISTVMD1} presents the distributions of mass, volume
+and density for each simulation of the first data set (only planck
+parameters simulations) and the respective value for Laniakea of each
+one of these variables. An atypical behaviour is observed as Laniakea
+is at the edges of the distributions and in an atypical region of the
+density histogram. In particular, Laniakea is found to be much more
+large, massive and dense than most of the superclusters identified by
+the algoritm. In addition, figure \ref{fig:HISTVMD1} exhibit a mass vs
+volume diagram in which the atypical behaviour is observed, as our
+supercluster is found out of the central group of superclusters. 
 
-Figure \ref{fig:HISTVMD2} shows how a significant change on the values of $\Omega_M$ and $\sigma_8$ affects the distributions of mass, volume and density of the superclusters. A similar result as in figure \ref{fig:HISTVMD1} is observed as Laniakea is still at the edges of the density histograms. In other words, the rareness of Laniakea, with respect to the groups stablished by the watershed algoritm, is independent on the choice of the values of cosmological parameters. In particular, when varying $\Omega_M$ and $\sigma_8$.
+Figure \ref{fig:HISTVMD2} shows how a significant change on the values
+of $\Omega_M$ and $\sigma_8$ affects the distributions of mass, volume
+and density of the superclusters. A similar result as in figure
+\ref{fig:HISTVMD1} is observed as Laniakea is still at the edges of
+the density histograms. In other words, the rareness of Laniakea, with
+respect to the groups stablished by the watershed algoritm, is
+independent on the choice of the values of cosmological parameters. In
+particular, when varying $\Omega_M$ and $\sigma_8$. 
 
 
-\begin{figure*}
-    \centering
-    \includegraphics[width=435pt]{mass_vol_planck.pdf}
-    \caption{Distributions of mass, volume and density for the superclusters found with $\sigma_{Vox} = 5$ using the first 5 Abacus Cosmos simulations with Planck parameters. A graph of mass vs volume in the first simulation of the Abacus Cosmos catalog is also shown. Notice how, Laniakea is at the edges of the distributions and in an atypical region of the density histogram. }
-    \label{fig:HISTVMD1}
-\end{figure*}
-
-
-\begin{figure*}
-    \centering
-    \includegraphics[width=435pt]{mass_vol_different.pdf}
-    \caption{Distributions of mass, volume and density for the superclusters found with $\sigma_{Vox} = 5$ using the first Abacus Cosmos simulation with Planck parameters and the 4 simulations associated to extreme values of $\sigma_8$ and $\Omega_m$. A graph of mass vs volume in the first simulation of the Abacus Cosmos catalog is also shown. Notice how, Laniakea is at the edges of the distributions and in an atypical region of the density histogram. }
-    \label{fig:HISTVMD2}
-\end{figure*}
 
 
 
