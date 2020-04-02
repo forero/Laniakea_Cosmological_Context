@@ -71,11 +71,7 @@ In all those cases Laniakea is found in the tail of the distribution, placing it
 \section{Introduction}
 % La introduccion y el abstract es lo ultimo que se escribe.
 
-
-In 1932 Harlow Shapley and Adelaide Ames published a catalog of nearby galaxies and their respective distributions in space \citep{catalogoRevisado}.  This work revealed clusters of galaxies on a large scale structure similar to a filament web. Until then there was knowledge of galaxies grouped in small groups, called clusters, but the observations suggested that these formed part of structures composed of several of these clusters. Almost a century later, observers managed to define the local supercluster within which the Milky Way is included \citep{tully_laniakea_2014}. 
-This supercluster is defined as a network of structures (formed by galaxies) that have convergent velocities towards a large attractor. This supercluster is called Laniakea. It has a mass of about $10^{17}$ Solar masses ($M_{\odot}$) and its semimajor axis has an approximate length of 160 Mpc \cite{NatureTully}.
-
-Although modern astronomy has advanced considerably in the study of galaxy clusters \cite{TheDeepUniverse}, much is still unknown about the statistical properties of these superclusters. To get some answers in this topic it is necessary to use cosmological simulations.
+This supercluster is defined as a network of structures (formed by galaxies) that have convergent velocities towards a large attractor. This supercluster is called Laniakea. It has a mass of about $10^{17}$ Solar masses ($M_{\odot}$) and its semimajor axis has an approximate length of 160 Mpc. 
 
 
 \section{Cosmological N-body data}
@@ -110,7 +106,7 @@ values for the divergence.
 \label{sec:INTROWatershed}
 
 We use watershed segmentation to define the superclusters.
-This methods segments a scalar field into disjoints groups \citep{BeucherWatershed1979, BeucherSegmetation}.
+This methods segments a scalar field into disjoints groups \citep{BeucherWatershed1979}.
 Our implementation works as follows . 
 We sweep the cells in the divergence grid from the lowest values to the highest, i.e. from
 the high density regions with converging flows to the lowest density regions with divergent
@@ -281,7 +277,6 @@ With the superclusters segregated and characterized we compare their propoerties
 
 Regarding future work, we strongly suggest to experiment with the initial conditions of the problem and with the definition of the grid. A proposal is to define a grid with distances less than 10 Mpc $h^{-1}$, that is, with a higher value of $N_{side}$ and therefore with greater definition. You can also try different mass cuts for the Halos, different simulations of the same cosmology used in this work or even simulations in the context of different cosmologies.\\
 
-\cite{2018A&A...616A..60O}
 \bibliographystyle{mnras}
 \bibliography{references}
 
