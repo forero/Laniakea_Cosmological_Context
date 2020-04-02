@@ -118,7 +118,7 @@ than $300$ \kms.
 Changing that limit down to $200$ \kms does not significantly affect
 the results we report here.
 
-\subsection{Interpolation, smoothing and divergence calculation}  
+\subsection{Velocity nterpolation, smoothing and divergence calculation}  
 
 We interpolate dark matter halo velocities into a cubic grid of side
 $N_{side}=360$, which corresponds to a cubic cell size of $L_{cell}=2$
@@ -166,41 +166,106 @@ does not have free parameters based either on divergence, density or distance th
 Finally, for each supercluster we compute its volume.
 
 
-\section{Results}
-
-
-\subsection{Gaussian Convolution and Sigma relevance}
-
-In his study about Laniakea, Tully\cite{tully_laniakea_2014} emphasizes a simple idea but with great influence on the study that will be developed. In his study is mentioned that, in cosmological frameworks, it is assumed that large-scale structure formation is due to Gaussian primordial fluctuations of the field of gravity. It is expected that as long as the density and speed fields evolution remain in the linear regime, they will keep their Gaussian properites. That is why to obtain adequate results it is necessary to take into account these Gaussian behavior of velocity and mass fields by smoothing them.
-
-\begin{figure}
-    \centering
-    \includegraphics[height = 580pt]{grad_fields.pdf}
-    \caption{Here is shown  a random cross section of the softened divergence fields. The $\sigma_{Vox}$ used for every case is shown on top of every plot. Notice how peak values decrease and defined structures start to be seen once $\sigma_{Vox}$ is increased.}
-    \label{fig:SigmasVDCZcut}
-\end{figure}
-Also, in order to perform the watershed analysis in a divergence grid it is necesary that the scalar field represented by the grid is differentiable, otherwise the watershed algorithm will find discontinuities and eventually will lead to the misclassification of superclusters. In particular, we want velocity distribution of the grid to look such as the initial distribution of the simulation. This initial distribution is presented in figure \ref{fig:initial_distribution}.
-
-In order to perform a complete watershed analysis over the divergence field and extend it to characterization of superclusters based on features as volume or mass,  it is necesary to apply the  \textbf{same} Gaussian Filter to the 3D axial velocity grids and the mass grid as well. This in done so that we can have consistent measures despite the smoothing of the divergence field.
-
-
-
 \begin{figure}
     \centering
     \includegraphics[width=240pt]{smooth_vel_dist.pdf}
-    \caption{Distribution of the speed magnitude for the voxels in the grid calculated for different values of $\sigma_{Vox}$. Notice how the ranges of values change when $\sigma_{Vox}$ changes and the distribution becomes similar to the one seen in figure \ref{fig:initial_distribution}.}
-    \label{fig:MD_Varios}
+    \caption{Distribution of the speed magnitude for the voxels in the
+      grid calculated for different values of $\sigma_{s}$. 
+      Notice how the ranges of velocities change with as $\sigma_{s}$
+      increases.
+    Furthermore the distribution shape becomes more symmetrical as the
+    smoothing scale increases.}
+    \label{fig:smooth_vel_dist}
 \end{figure}
-
-To perform the smoothing, a $\sigma_{Vox}$ value is needed with aim of defining the width of the Gaussian Filter. With small $\sigma_{Vox}$\footnote{Small $\sigma$ are between 1 and 5 voxels in the grid reference. Big $\sigma$ are values of 15 voxels or more.} many structures are visible in a fine and defined network in the divergence grid, while big $\sigma_{Vox}$ only diferentiate big structures with barely any resolution of smaller filaments. Also, using big $\sigma_{Vox}$ cause peak values to be smoothed and values of the field move closer to  the average value of the field. This effects can be seen in Figure \ref{fig:SigmasVDCZcut} where the same cross-section of the divergence field grid is shown but smoothed with different values of $\sigma_{Vox}$.
 
 
 \begin{figure}
     \centering
     \includegraphics[width=240pt]{smooth_grad_dist.pdf}
-    \caption{Distribution of the divergence field for the voxels in the grid calculated for different values of $\sigma_{Vox}$. Notice how the divergence ranges get lower when $\sigma_{Vox}$ increases.}
-    \label{fig:VCD_Varios}
+    \caption{Distribution of the divergence field as a function of
+      $\sigma_s$.
+    Both the shape and typical range ogf values change as the
+    smoothing scale increases.} 
+    \label{fig:smooth_grad_dist}
 \end{figure}
+
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=220pt]{smooth_watershed_01.pdf}
+    \includegraphics[width=220pt]{smooth_watershed_05.pdf}
+    \caption{On the left there is a random cut on the axis where the
+      regions with different accretion are observed. On the right the
+      classification made by the Watershed method is shown, where
+      different regions have different colors. Both figures were made
+      using a smoothing scale of $\sigma_{Vox}$ = 1. Notice how a
+      large number of superclusters are found by the algorithm and the
+      correspondent absent of structures in the divergence figure.
+      This graph shows the same cross section as Figure
+       but this time the field was smoothed with
+      $\sigma_{Vox}$ = 5. In this case, a lower number of sperclusters
+      is found in the same cut of the 3D grid. In both graphs it is
+      seen how the distinguishable accretion peaks are classified as
+      independent regions by the algorithm.
+    \label{fig:1Pert}}
+\end{figure*}
+
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=240pt]{num_superclusters.pdf}
+    \includegraphics[width=240pt]{std_smooth.pdf}
+    \caption{Behaviour of the number of superclusters found in a
+      simulation and the standard deviation of the divergence field of
+      the simulation as a function of the smoothing scale parameter
+      $\sigma_{Vox}$. Effectively a smaller $\sigma_{Vox}$ implies
+      recognizing many more structures; This is because each structure
+      is of a smaller volume and a larger quantity is required to fill
+      the entire space of the simulation. In addition, a smaller
+      $\sigma_{Vox}$ implies that a lighter softened is been applied
+      on the data and it produces a less smooth distributed grid.} 
+    \label{fig:Nclusters}
+\end{figure*}
+
+\section{Results}
+
+\subsection{Influence of the smoothing scale}
+
+We explore first the influence of the smoothing scale on the
+interpolated velocity and the velocity divergence.
+
+In his study about Laniakea, Tully\cite{tully_laniakea_2014}
+emphasizes a simple idea but with great influence on the study that
+will be developed. In his study is mentioned that, in cosmological
+frameworks, it is assumed that large-scale structure formation is due
+to Gaussian primordial fluctuations of the field of gravity. It is
+expected that as long as the density and speed fields evolution remain
+in the linear regime, they will keep their Gaussian properites. That
+is why to obtain adequate results it is necessary to take into account
+these Gaussian behavior of velocity and mass fields by smoothing
+them. 
+
+Also, in order to perform the watershed analysis in a divergence grid
+it is necesary that the scalar field represented by the grid is
+differentiable, otherwise the watershed algorithm will find
+discontinuities and eventually will lead to the misclassification of
+superclusters. In particular, we want velocity distribution of the
+grid to look such as the initial distribution of the simulation. This
+initial distribution is presented in figure
+\ref{fig:initial_distribution}. 
+
+In order to perform a complete watershed analysis over the divergence
+field and extend it to characterization of superclusters based on
+features as volume or mass,  it is necesary to apply the
+\textbf{same} Gaussian Filter to the 3D axial velocity grids and the
+mass grid as well. This in done so that we can have consistent
+measures despite the smoothing of the divergence field. 
+
+
+
+
+To perform the smoothing, a $\sigma_{Vox}$ value is needed with aim of defining the width of the Gaussian Filter. With small $\sigma_{Vox}$\footnote{Small $\sigma$ are between 1 and 5 voxels in the grid reference. Big $\sigma$ are values of 15 voxels or more.} many structures are visible in a fine and defined network in the divergence grid, while big $\sigma_{Vox}$ only diferentiate big structures with barely any resolution of smaller filaments. Also, using big $\sigma_{Vox}$ cause peak values to be smoothed and values of the field move closer to  the average value of the field. This effects can be seen in Figure \ref{fig:SigmasVDCZcut} where the same cross-section of the divergence field grid is shown but smoothed with different values of $\sigma_{Vox}$.
+
 
 
 \paragraph{Remember}  that once the $\sigma_{Vox}$ value has been chosen, the smoothing must be done for the axial velocity grids $V_x$, $V_y$, $V_z$ and the mass grid \textbf{M}. This in order to have coherent results in future processes.
@@ -213,14 +278,6 @@ Once the grids have been smoothed with a defined $\sigma_{Vox}$, it is evident t
 \subsection{Interpretation of low digergence regions}
 Once the Gaussian process is realized in the simulations, several regions of negative divergence are identified. These regions are interpreted as places in space where matter is coming together at high ratios. As a result, after the interpolation is executed, negative divergence regions are expected to have larger values of absolute velocities. This can be seen in Figure \ref{fig:grad_vel_fields} where the divergence field is shown in colors, where yellow zones have a big positive divergence and dark blue regions are those with big negative values for it. Notice how in these structures the divergence is much more negative in the center of the agglomerations than in the rest of the structure and how the whole structure has bigger velocity vectors than the remain regions. The last part corresponds to the structure formation process, interpreted in this context as the region where a supercluster could possibly be, and will be the first regions considered once we apply the watershed algorithm.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=240pt]{grad_vel_fields.pdf}
-    \caption{In a cross section of the 3D grid at a random X, the corresponding  velocity vectors in Y and Z are shown in black. The divergence field is shown in colors, where yellow zones have a big positive divergence and dark blue regions are those with big negative values for it. Notice how in these structures the divergence is much more negative in the center of the agglomerations than in the rest of the structure and how the whole structure has bigger velocity vectors than the remain regions.}
-    \label{fig:grad_vel_fields}
-\end{figure}
-
-
 
 \subsection{Watershed algorithm}
  Hence, in order to define geometric boundaries for random objects a powerful tool called  the \textbf{Watershed Algorithm} is used. For this problem the watershed method is fundamental for the recognition of clusters and, therefore, it is the backbone of this work. The algorithm assigns an integer as the identifier for each voxel evaluated. This integer is in ascending order, for simplicity of the algorithm. For example, the identifier \texttt{'1'} was assigned to the group associated with the \texttt{first} seed that was found, the identifier \texttt{'255'} was assigned to the group of the \texttt{255th} seed and so on. 
@@ -229,33 +286,22 @@ Once the Gaussian process is realized in the simulations, several regions of neg
  
  As expected, the first groups that the algorithm recognizes are those whose origin had very high accretion. These high accretion centers belong to the largest superclusters, which are expected to have the lowest identifiers.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=220pt]{smooth_watershed_01.pdf}
-    \caption{On the left there is a random cut on the axis where the regions with different accretion are observed. On the right the classification made by the Watershed method is shown, where different regions have different colors. Both figures were made using a smoothing scale of $\sigma_{Vox}$ = 1. Notice how a large number of superclusters are found by the algorithm and the correspondent absent of structures in the divergence figure.}
-    \label{fig:1Pert}
-\end{figure}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=220pt]{smooth_watershed_05.pdf}
-    \caption{This graph shows the same cross section as Figure \ref{fig:1Pert}, but this time the field was smoothed with $\sigma_{Vox}$ = 5. In this case, a lower number of sperclusters is found in the same cut of the 3D grid. In both graphs it is seen how the distinguishable accretion peaks are classified as independent regions by the algorithm.}
-    \label{fig:3Pert}
-\end{figure}
-As for the shape of the regions, superclusters are expected to have random and therefore unpredictable forms. However, it is possible to establish patterns that the regions must follow to determine if the algorithm is faulty or inefficient. For example, it is expected that in regions of void, i.e. those with negative accretion, the borders of many regions will be brought together. This is because they are the last parts of the scalar map that the surveyed of watershed evaluates. Figure \ref{fig:3Pert} shows a huge void where this predicate can be corroborated.
+As for the shape of the regions, superclusters are expected to have
+random and therefore unpredictable forms. However, it is possible to
+establish patterns that the regions must follow to determine if the
+algorithm is faulty or inefficient. For example, it is expected that
+in regions of void, i.e. those with negative accretion, the borders of
+many regions will be brought together. This is because they are the
+last parts of the scalar map that the surveyed of watershed
+evaluates. Figure \ref{fig:3Pert} shows a huge void where this
+predicate can be corroborated. 
 
 
 \subsubsection{Sigma Influence Analysis}
 \label{sec:Sigmainfluence}
 Watershed's algorithm was performed on the divergence grid built with smoothed speeds of the simulations with certain  $\sigma_{Vox}$. This method finds a determined number of superclusters in the entire space and assigns each supercluster a group identifier. If the method was used, it is worth saying that all the points in the grid already belong to a group.
 
-\begin{figure*}
-    \centering
-    \includegraphics[width=240pt]{num_superclusters.pdf}
-    \includegraphics[width=240pt]{std_smooth.pdf}
-    \caption{Behaviour of the number of superclusters found in a simulation and the standard deviation of the divergence field of the simulation as a function of the smoothing scale parameter $\sigma_{Vox}$. Effectively a smaller $\sigma_{Vox}$ implies recognizing many more structures; This is because each structure is of a smaller volume and a larger quantity is required to fill the entire space of the simulation. In addition, a smaller $\sigma_{Vox}$ implies that a lighter softened is been applied on the data and it produces a less smooth distributed grid.}
-    \label{fig:Nclusters}
-\end{figure*}
 
 When defining different $\sigma_{Vox}$, it is expected that prominent fluctuations in the divergence field occupy a greater or lesser volume depending on the chosen $\sigma_{Vox}$. Similarly, it is expected that by using a larger $\sigma_{Vox}$, for example, the method classify superclusters that are larger and therefore a lower number of them will be found. Figure \ref{fig:Nclusters} shows the number of superclusters classified for each $\sigma_{Vox}$, as  well as the behaviour of the standard deviation of the divergence as a function of $\sigma_{Vox}$. In both plots it is observed that the $\sigma_{Vox}$ is indeed relevant in the definition of large scale strutures in simulations.
 
