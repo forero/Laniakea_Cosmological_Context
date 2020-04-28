@@ -121,16 +121,17 @@ significantly impact our results.
 
 
 \subsection{Velocity interpolation, smoothing and divergence calculation}  
-Finally, a Cloud-In-Cell (CIC) scheme is used to interpolate the velocities given by each simulation into a 360$^3$ grid, which means a voxel of 2\,\Mpch of side length. This resolution is deliberately smaller than the nominal resolution
+
+We interpolate the peculiar velocities for all halos on a grid using a Cloud-In-Cell (CIC) scheme.
+We use a cubic grid with $360^3$ voxels, which means that each voxel is a cube of $2$ \Mpch on a side. 
+This resolution is deliberately smaller than the nominal resolution
 used in the Wiener filter reconstruction performed on the
 CosmicFlows-2 data used to define Laniakea.
+After the interpolation we smooth the velocity field using a gaussian filter of physical scale $\sigma_s$. 
+We compute the velocity divergence on this smooth velocity field.
+The purpose of this smoothing is to mimic the process of Wiener filter reconstruction, which provides the equivalent of a smooth peculiar velocity field.
+We explore different smoothing scales ranging from $2$ \Mpch up to $20$ \Mpch. 
 
-Once the simulation is interpolated into the desired grid, a Watershed algorithm must be applied. However, in order to perform the watershed analysis in a divergence grid it is necessary that the scalar field represented by the grid is
-differentiable, otherwise the watershed algorithm will find
-discontinuities and eventually will lead to the misclassification of
-superclusters. Thus we implement a Gaussian smoothing that sets the grid to a differentiable data set and also lowers the effective resolution of the velocity field to mimic the limited resolution from the Wiener
-filter reconstruction. The Gaussian smoothing effects on the simulation data are determined by the Gaussian length $\sigma_s$. This parameter establishes how smoothed data finishes after the filtering process is carried out. Finally, from the interpolated-smoothed velocity field we compute the
-divergence using a three point centered finite difference scheme. The calculation of the divergence is the main step of the smoothing process as it is used to find watersheds on the simulation from the velocity field flows that this quantity represents.
 
 
 \begin{figure}
@@ -159,9 +160,9 @@ divergence using a three point centered finite difference scheme. The calculatio
 
 \subsection{Watershed algorithm: Supercluster-Finder}
 
-Watershed algorithm is a very powerful tool as it allows the recognition of clusters and, therefore, it is the backbone of this work. This algorithm is an iterative method which segments a scalar field into disjoint groups \citep{BeucherWatershed1979}. The latter is the main reason why it is an useful tool to define superclusters.
-The algorithm assigns an integer as the identifier for each voxel evaluated. This integer is in ascending order, for simplicity of the algorithm. For example, the identifier \texttt{'1'} was assigned to the group associated with the \texttt{first} seed that was found, the identifier \texttt{'255'} was assigned to the group of the \texttt{255th} seed and so on. 
-
+We use a watershed algorithm \citep{BeucherWatershed1979} on the velocity divergence field to find the
+superclusters.
+The algorithm segments the whole volume by assigning each voxel to a unique supercluster. 
 Our implementation works as follows. 
 We sweep the cells in the divergence grid from the lowest values to the highest, i.e. from
 the high density regions with converging flows to the lowest density regions with divergent
@@ -169,12 +170,14 @@ flows.
 For the $i$-th cell under consideration we check whether its 26 neighbors have already been assigned to a group. 
 If all the neighbors are unassigned, then this $i$-th cell starts a
 new group; if the majority of already assigned cells belongs to the
-$n$-th group, then this cell belongs to that group.  
+$n$-th group, then this cell belongs to that group.
+In case of draw between, the voxel is assigned to the supercluster with the lowest identification number.
 At the end of the sweep all cells have been assigned to a group. 
 In all our calculations we take periodical boundary conditions into
 account.  
 We highlight that once the divergence field is provided, this algorithm
-does not have free parameters based either on divergence, density or distance thresholds. Finally, each group found by the algorithm will be interpreted as a supercluster and its volume is then computed by counting the number of voxels which belong to it.
+does not have free parameters based either on divergence, density or distance thresholds. 
+Finally, each group found by the algorithm will be interpreted as a supercluster and its volume is then computed by counting the number of voxels which belong to it.
 
 
 \section{Results}
