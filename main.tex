@@ -171,28 +171,35 @@ For the $i$-th cell under consideration we check whether its 26 neighbors have a
 If all the neighbors are unassigned, then this $i$-th cell starts a
 new group; if the majority of already assigned cells belongs to the
 $n$-th group, then this cell belongs to that group.
-In case of draw between, the voxel is assigned to the supercluster with the lowest identification number.
+In case of draw between groups, the cell is assigned to the supercluster with the lowest $n$ value.
 At the end of the sweep all cells have been assigned to a group. 
 In all our calculations we take periodical boundary conditions into
 account.  
 We highlight that once the divergence field is provided, this algorithm
 does not have free parameters based either on divergence, density or distance thresholds. 
-Finally, each group found by the algorithm will be interpreted as a supercluster and its volume is then computed by counting the number of voxels which belong to it.
-
+Finally, each group found by the algorithm is interpreted as a supercluster 
+with a volume computed by counting the number of voxels belonging to it.
 
 \section{Results}
-This section presents the results of applying numerical setup presented in section \ref{sec:numerical_setup} to different simulations. In this way, queries such as the importance of choosing $\sigma_s$ as well as the impact of varying cosmological parameters are discussed in this segment.
 
-\subsection{$\sigma_s$ influence on the velocity and divergence fields}
+This section presents in the first place the influence of $\sigma_s$ on the velocity fields, its divergence and the resulting supercluster segmentation.
+In a second stance we show the influence of cosmic variance and different cosmological parameters on the volume distribution function for superclusters.
+
+\subsection{Smoothing scale influence on the velocity and divergence fields}
 \label{VDF effects}
 
-The velocity field and the divergence field are expected to have a significant dependence on the value of $\sigma_s$. In order to evaluate the influence of the latter on these fields, a Gaussian smoothing process using different $\sigma_s$ values is applied to an AbacusCosmos\_720box\_planck simulation.
-We explore a range of values close to the typically quoted equivalent
-spatial resolution of the Wiener Filter studies on
-CosmicFlows-2 data, which corresponds to a value of $\sigma_s = 10$\,\Mpch.
-Thus the simulation velocity field was smoothed using $\sigma_s$ = 6\,\Mpch, 10\,\Mpch, 14\,\Mpch and 20\,\Mpch. 
 
-Figure \ref{fig:smooth_vel_dist} shows the influence of the Gaussian length on the resulting velocity distribution of voxels. This chart shows that, as $\sigma_s$ is increased the range of velocities in the grid gets reduced. It was expected that this attenuation would happen since the interpolation brings the data closer to the field average. Figure \ref{fig:smooth_grad_dist} corresponds the the same latter analysis applied to the divergence field. It is also observed that the range of divergence values gets reduced when $\sigma_s$ increases. In addition, figure \ref{fig:std_smooth} evaluates the effect of the Gaussian smoothing parameter on the standard deviation of the divergence field. As expected, according to the idea of data coming together to the mean value, the standard deviation decreases as $\sigma_s$ increases, which implies the higher the value of this parameter, the closer data gets.
+The velocity field and the divergence field are expected to have a significant dependence on the value of $\sigma_s$.
+In order to quantify this influence we use values of $\sigma_s$/\Mpch = $2$, $6$, $10$, $14$ and $20$
+to measure the impact the velocity and divergence distributions.
+
+Figure \ref{fig:smooth_vel_dist} shows the velocity norm distribution for four different values of $\sigma_s$.
+As $\sigma_s$ is increases the distribution becomes more symmetric, while the  width of the distribution
+is reduced.
+The smoothing brings the data closer to the field average.
+
+These changes are also reflected in  Figure \ref{fig:smooth_grad_dist} where we have the same kind of analysis this time for the velocity divergence.
+It is also observed that the range of divergence values gets reduced when $\sigma_s$ increases. In addition, figure \ref{fig:std_smooth} evaluates the effect of the Gaussian smoothing parameter on the standard deviation of the divergence field. As expected, according to the idea of data coming together to the mean value, the standard deviation decreases as $\sigma_s$ increases, which implies the higher the value of this parameter, the closer data gets.
 
 
 
