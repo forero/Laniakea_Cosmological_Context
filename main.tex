@@ -205,6 +205,24 @@ with a volume computed by counting the number of voxels belonging to it.
 \end{figure}
 
 
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=220pt]{smooth_watershed_01.pdf}
+    \includegraphics[width=211pt]{smooth_watershed_05.pdf}
+    \caption{Figures on top show a random (300\,\Mpch)$^2$ cut on the
+      X axis of the divergence grid for two different values of
+      $\sigma_s$. Figures on the bottom show the classification made
+      by the Watershed method for the two regions shown on top and
+      where different superclusters have different colors. These two
+      charts also contain a centered circle with the same diameter as
+      Laniakea. It can be seen that Laniakea is much bigger than any
+      other supercluster found using both $\sigma_s$.} 
+    \label{fig:1Pert}
+\end{figure*}
+
+
+
 This section presents in the first place the influence of $\sigma_s$
 on the velocity fields, its divergence and the resulting supercluster
 segmentation. 
@@ -219,17 +237,121 @@ Figure \ref{fig:smooth_vel_dist} shows the velocity norm distribution
 for four different values of $\sigma_s$. 
 As $\sigma_s$ increases the distribution becomes more symmetric with a
 decreasing width, as expected.
+The same trend is observed in Figure \ref{fig:smooth_grad_dist} for
+the divergence of the velocity field.
 
-These changes are also reflected in  Figure \ref{fig:smooth_grad_dist}
-where we have the same kind of analysis this time for the velocity
-divergence. 
-The width of the divergence distribution also decreases as the 
-smoothing scale increases.
-We show this 
+This is neatly summarized in  Figure \ref{fig:std_smooth}.
+The standard deviation of the divergence has a strong dependence on
+the smoothing length.
+The standard deviation goes from values of $3$  km s$^{-1}$ Mpc$^{-1}$ $h$ 
+for a smoothing scale of $2$ \Mpch down to $0.075$ km s$^{-1}$
+Mpc$^{-1}$ $h$ for a smoothing scale of $20$ \Mpch.
+That means that increasing the smoothing scale by a factor of $8$
+reduces the width of the divergence distribution by a factor of
+$40$. 
+
+\subsection{Smoothing scale influence on the resulting superclusters}
+\label{sec:superclusters_influence}
+
+The strong effects of the smoothing scale on the velocity and its
+divergence is immediatly imprinted onto the results of the watershed
+algorithm.
+
+
+Finally, the influence of $\sigma_s$ on the sighting of structures
+formation must be analyzed. This effects can be seen in Figure
+\ref{fig:1Pert} where the same cross-section of the divergence field
+grid is shown but smoothed with $\sigma_s$ = 2\,\Mpch and $\sigma_s$ =
+10\,\Mpch (top diagrams). In addition, this chart presents the effects
+of this parameter on the groups selected by watershed algorithm
+(bottom diagrams), but this is discussed in the next section. These
+plots show a random section of the divergence grid with size
+(300\,\Mpch)$^2$. With small $\sigma_{s}$ many structures are visible
+in a fine and defined network in the divergence grid, while large
+$\sigma_{s}$ differentiates big structures of high accretion,
+i.e. high negative, with barely any resolution of smaller
+filaments. Also, using large $\sigma_{s}$ causes peak values of
+divergence to be smoothed and values of the field move closer to  the
+average value of the field.  
 
 
 
-Finally, the influence of $\sigma_s$ on the sighting of structures formation must be analyzed. This effects can be seen in Figure \ref{fig:1Pert} where the same cross-section of the divergence field grid is shown but smoothed with $\sigma_s$ = 2\,\Mpch and $\sigma_s$ = 10\,\Mpch (top diagrams). In addition, this chart presents the effects of this parameter on the groups selected by watershed algorithm (bottom diagrams), but this is discussed in the next section. These plots show a random section of the divergence grid with size (300\,\Mpch)$^2$. With small $\sigma_{s}$ many structures are visible in a fine and defined network in the divergence grid, while large $\sigma_{s}$ differentiates big structures of high accretion, i.e. high negative, with barely any resolution of smaller filaments. Also, using large $\sigma_{s}$ causes peak values of divergence to be smoothed and values of the field move closer to  the average value of the field. 
+
+
+
+
+
+\subsubsection{Interpretation of low divergence regions}
+Once the Gaussian process is realized in the simulations, several
+regions of negative divergence are identified. These regions are
+interpreted as places in space where matter is coming together at high
+ratios. As a result, after the interpolation and smoothing are
+executed, negative divergence regions are expected to have the largest
+values of absolute velocities. These high negative divergence regions
+can be observed in the divergence field chart using $\sigma_s =
+10$\,\Mpch in figure \ref{fig:1Pert}. Notice how in these structures
+the divergence is much more negative in the center of the
+agglomerations than in the rest of the structure. The latter
+corresponds to a structure formation process, interpreted in this
+context as the region where a supercluster could possibly be, and will
+be the first regions considered once we apply the watershed
+algorithm. 
+
+
+\subsection{$\sigma_s$ influence on the Watershed algorithm}
+
+
+In the previous section we described how varying $\sigma_s$ has a
+significant impact on the values of the velocity and divergence
+fields. Since Watershed algorithm takes the divergence field and
+segments it into disjoint groups (superclusters), it is expected that
+$\sigma_s$ also modifies the result of the algorithm by
+transitivity. In addition, we mentioned that increasing the Gaussian
+length causes peak values of negative divergence to become large
+structures with negative divergence. Therefore, since the algorithm
+classifies according to the behaviour of these structures, if they get
+bigger, superclusters detected by the algorithm will become greater
+too. As a result, a drop on the number of superclusters detected must
+be observed. The behaviour of the number of superclusters found as a
+function of $\sigma_s$ is shown in figure \ref{fig:Nclusters}. Indeed,
+we observe a considerable reduction of the number of superclusters
+found when $\sigma_s$ is raised. In addition figures \ref{fig:1Pert}
+and \ref{fig:HISTVMD2} shows the effects of changing the value of the
+Gaussian length on the volumes of the superclusters detected. 
+
+As mentioned in section \ref{VDF effects} figure \ref{fig:1Pert} shows
+a random section of size (300\,\Mpch)$^2$ of the divergence grid using
+$\sigma_s$ = 2\,\Mpch and $\sigma_s$ = 10\,\Mpch. Moreover, this
+figure also presents the groups found by the algorithm corresponding
+to this section, with a circle of the same diameter as Laniakea in the
+middle of each chart. First, it can be seen that there is a clear
+correspondence between the state of the divergence grid and the
+structures found. If space is dominated by null divergence values and
+small regions with negative divergence($\sigma_s = 2\,\Mpch$), small
+groups will be detected. On the other hand, if the size of these
+negative divergence regions is increased, large groups will be
+detected by the algorithm. However, even when the value of $\sigma_s$
+is raised from 2\,\Mpch to 10\,\Mpch, superclusters detected by
+Watershed method are much smaller than the reported size of Laniakea
+by \cite{2014Natur.513...71T}. The behaviour of the volume
+distribution of the superclusters for different $\sigma_s$ values is
+presented in figure \ref{fig:HISTVMD2}, where the same simulation is
+smoothed using $\sigma_s$ = 2\,\Mpch, 6\,\Mpch, 14\,\Mpch and
+20\,\Mpch. In addition, a vertical line is drawn to mark the reference
+of the volume of Laniakea. For low $\sigma_s$ values, i.e. 2\,\Mpch
+and 6\,\Mpch, no supercluster detected by the algorithm is as large as
+Laniakea. In both cases Laniakea is found at the right side of the
+distribution and is almost one or two orders of magnitude bigger than
+the largest structures found for 2\,\Mpch and 6\,\Mpch
+respectively. On the other hand, once we take values of $\sigma_s$
+higher than 10\,\Mpch, Laniakea starts to be inside of the
+distribution, as in $\sigma_s$ = 14\,\Mpch. Finally, we observe that
+its volume becomes the must common one found by the algorithm when
+$\sigma_s$ = 20\,\Mpch is taken. This result gives us a first hint of
+the relation of Laniakea with the simulated superclusters found by
+Watershed method. It seems to be that Laniakea is an atypical and very
+large supercluster. We will delve into this topic in the following
+section. 
 
 
 
@@ -239,36 +361,12 @@ Finally, the influence of $\sigma_s$ on the sighting of structures formation mus
     \caption{Behaviour of the number of superclusters found in a
       simulation as a function of the smoothing scale parameter
       $\sigma_{Vox}$. Effectively a smaller $\sigma_{Vox}$ implies
-      recognizing many more structures. This behavior was expected since each structure carries a smaller volume and a larger number of them is required to fill
-      the entire space of the simulation.} 
+      recognizing many more structures. 
+This behavior was expected since each structure carries a smaller
+volume and a larger number of them is required to fill the entire
+space of the simulation.}  
     \label{fig:Nclusters}
 \end{figure}
-
-
-
-
-
-\begin{figure*}
-    \centering
-    \includegraphics[width=220pt]{smooth_watershed_01.pdf}
-    \includegraphics[width=211pt]{smooth_watershed_05.pdf}
-    \caption{Figures on top show a random (300\,\Mpch)$^2$ cut on the X axis of the divergence grid for two different values of $\sigma_s$. Figures on the bottom show the classification made by the Watershed method for the two regions shown on top and where different superclusters have different colors. These two charts also contain a centered circle with the same diameter as Laniakea. It can be seen that Laniakea is much bigger than any other supercluster found using both $\sigma_s$.}
-    \label{fig:1Pert}
-\end{figure*}
-
-
-\subsubsection{Interpretation of low divergence regions}
-Once the Gaussian process is realized in the simulations, several regions of negative divergence are identified. These regions are interpreted as places in space where matter is coming together at high ratios. As a result, after the interpolation and smoothing are executed, negative divergence regions are expected to have the largest values of absolute velocities. These high negative divergence regions can be observed in the divergence field chart using $\sigma_s = 10$\,\Mpch in figure \ref{fig:1Pert}. Notice how in these structures the divergence is much more negative in the center of the agglomerations than in the rest of the structure. The latter corresponds to a structure formation process, interpreted in this context as the region where a supercluster could possibly be, and will be the first regions considered once we apply the watershed algorithm.
-
-
-\subsection{$\sigma_s$ influence on the Watershed algorithm}
-
-
-In the previous section we described how varying $\sigma_s$ has a significant impact on the values of the velocity and divergence fields. Since Watershed algorithm takes the divergence field and segments it into disjoint groups (superclusters), it is expected that $\sigma_s$ also modifies the result of the algorithm by transitivity. In addition, we mentioned that increasing the Gaussian length causes peak values of negative divergence to become large structures with negative divergence. Therefore, since the algorithm classifies according to the behaviour of these structures, if they get bigger, superclusters detected by the algorithm will become greater too. As a result, a drop on the number of superclusters detected must be observed. The behaviour of the number of superclusters found as a function of $\sigma_s$ is shown in figure \ref{fig:Nclusters}. Indeed, we observe a considerable reduction of the number of superclusters found when $\sigma_s$ is raised. In addition figures \ref{fig:1Pert} and \ref{fig:HISTVMD2} shows the effects of changing the value of the Gaussian length on the volumes of the superclusters detected.
-
-As mentioned in section \ref{VDF effects} figure \ref{fig:1Pert} shows a random section of size (300\,\Mpch)$^2$ of the divergence grid using $\sigma_s$ = 2\,\Mpch and $\sigma_s$ = 10\,\Mpch. Moreover, this figure also presents the groups found by the algorithm corresponding to this section, with a circle of the same diameter as Laniakea in the middle of each chart. First, it can be seen that there is a clear correspondence between the state of the divergence grid and the structures found. If space is dominated by null divergence values and small regions with negative divergence($\sigma_s = 2\,\Mpch$), small groups will be detected. On the other hand, if the size of these negative divergence regions is increased, large groups will be detected by the algorithm. However, even when the value of $\sigma_s$ is raised from 2\,\Mpch to 10\,\Mpch, superclusters detected by Watershed method are much smaller than the reported size of Laniakea by \cite{2014Natur.513...71T}. The behaviour of the volume distribution of the superclusters for different $\sigma_s$ values is presented in figure \ref{fig:HISTVMD2}, where the same simulation is smoothed using $\sigma_s$ = 2\,\Mpch, 6\,\Mpch, 14\,\Mpch and 20\,\Mpch. In addition, a vertical line is drawn to mark the reference of the volume of Laniakea. For low $\sigma_s$ values, i.e. 2\,\Mpch and 6\,\Mpch, no supercluster detected by the algorithm is as large as Laniakea. In both cases Laniakea is found at the right side of the distribution and is almost one or two orders of magnitude bigger than the largest structures found for 2\,\Mpch and 6\,\Mpch respectively. On the other hand, once we take values of $\sigma_s$ higher than 10\,\Mpch, Laniakea starts to be inside of the distribution, as in $\sigma_s$ = 14\,\Mpch. Finally, we observe that its volume becomes the must common one found by the algorithm when $\sigma_s$ = 20\,\Mpch is taken. This result gives us a first hint of the relation of Laniakea with the simulated superclusters found by Watershed method. It seems to be that Laniakea is an atypical and very large supercluster. We will delve into this topic in the following section.
-
-The graphics and results presented in this section were obtained using AbacusCosmos\_720box\_planck simulations.
 
 
 \begin{figure*}
