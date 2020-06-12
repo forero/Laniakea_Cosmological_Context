@@ -50,7 +50,21 @@ $^{2}$ Center for Neuroprosthetics and Brain Mind Institute, Swiss
 %%%%%====MYMARK========
 \maketitle
 \begin{abstract}
-Galaxy superclusters can be defined as regions of converging galaxy velocity flows. Such structures have quantifiable properties such as mass, volume and shape. The most precise quantification of such an object has been done on our local supercluster, Laniakea. In this work the properties of Laniakea are compared to the expectations from a $\Lambda$CDM Universe. Cosmological N-body simulations are used in order to find cosmic flow fields of dark matter halos and find superclusters using a watershed algorithm. In addition, the distributions of volume of the superclusters found in those simulations are quantified and compared with known values for Laniakea. The latter process was done for both Planck 2015 cosmologies and cosmologies with extreme values of $\Omega_m$ and $\sigma_8$ parameters. In all those cases Laniakea is found on the right side of the distribution, placing it as an atypical object in a cosmological context. 
+Galaxy superclusters can be defined as regions of converging galaxy
+velocity flows. Such structures have quantifiable properties such as
+mass, volume and shape. The most precise quantification of such an
+object has been done on our local supercluster, Laniakea. In this work
+the properties of Laniakea are compared to the expectations from a
+$\Lambda$CDM Universe. Cosmological N-body simulations are used in
+order to find cosmic flow fields of dark matter halos and find
+superclusters using a watershed algorithm. In addition, the
+distributions of volume of the superclusters found in those
+simulations are quantified and compared with known values for
+Laniakea. The latter process was done for both Planck 2015 cosmologies
+and cosmologies with extreme values of $\Omega_m$ and $\sigma_8$
+parameters. In all those cases Laniakea is found on the right side of
+the distribution, placing it as an atypical object in a cosmological
+context.  
 \end{abstract}
 
 \begin{keywords}
@@ -69,32 +83,104 @@ Galaxy superclusters can be defined as regions of converging galaxy velocity flo
 % La introduccion y el abstract es lo ultimo que se escribe.
 
 
-Modern cosmology has as a fundamental pillar the idea that the universe, on the largest scales, is isotropic and homogeneous. This cosmological principle is expected to be true once hundreds or thousands of Megaparsecs are considered. However, on lower scales, a very well defined interconnected network of voids, filaments, sheets and galaxy clusters forms the more complex structure in the observable universe, the cosmic web \citep{Bond_1996}. The study of this network has been highly complex over the years due to the difficulties involved in identifying the internal structures of the network. In this way, several approaches has been adopted in order to research about the properties of the cosmic web \citep{Libeskind_2017, coutinho2016network}. In the same way, a joint work between the observations and the simulations has been carried out in order to fully understand this pattern in the universe. We can find an example of the observational approach in \cite{Kim_2016}, where the filamentary structures surrounding the Virgo cluster are analysed using data from the HyperLeda database. Other examples of this approach can be found in \cite{Santiago_Bautista_2020}, \cite{van_de_Weygaert_2014} and \cite{Lares_2017}. Finally, a computational approach is presented in \cite{10.1111/j.1365-2966.2009.14885.x} where a dynamical classification of the cosmic web is applied to cosmological N-body simulations. 
-
-In this paper we are interested in superclusters, which are defined as the union of the elements of the cosmic network that form an identifiable structure. Studying this type of structures involves the same difficulties of studying the cosmic web as they are not found by a unique method. In particular, luminosity density data has been one of the selected ways to find and classify superclusters in observational data, as presented in \cite{Lietzen_2016} and \cite{Bagchi_2017}. In addition, numerical simulations represent a powerful in the study of superclusters as they allow investigators to test different cosmological parameters and also to consider the time evolution of the cosmic web components \citep{Einasto_2019,einasto2020evolution}. Our main interest remains in a kinematic approach to this problem, which will let us introduce a supercluster finding algorithm that uses the divergence of the velocity field of DM halos.
-
-In 2014, astronomers used a map  of peculiar velocities of galaxies to
+In 2014 astronomers used a peculiar velocities map  to 
 define the Laniakea supercluster of galaxies
 \citep{2014Natur.513...71T}.  
 Their main input was the Cosmicflows-2 catalog of distances and radial
-velocities that provide them with coverage of distances up to 400\,Mpc. 
-By applying a Wiener filter \citep{Zaroubi_1999} they obtained the reconstruction of the
-3-dimensional velocity field. They defined and named our local galaxy supercluster, 
-Laniakea, as the region within walls of divergence velocity.  
-Laniakea thus represents the region of in-flowing peculiar velocities
-that include the Milky Way. Laniakea was found to have a very isotropic shape. 
-Its diameter is approximately $160$\,Mpc and encompasses a mass of
-$\approx 10^{17}$\,\Msun.
+velocities that provide them with coverage of distances up to 400 Mpc
+[CITA A COSMICFLOWS-2]. 
+By applying a Wiener filter \citep{Zaroubi_1999} they obtained the
+reconstruction of the 3-dimensional velocity field. 
+From this reconstructions they our local galaxy supercluster, Laniakea.
+Laniakea thus represents the region of inflowing peculiar velocities
+that include the Milky Way. 
+The volume spanned by Laniakea is close to isotropic with an 
+approximate diameter of $160$ Mpc encompassing a mass of
+$\approx 10^{17}$ \Msun.
+
+From a general omputational point of view the definition of Laniakea poses
+an interesting problem, namely defining regions of converging velocity
+flows.
+This conceptual statement has been recently exploited by \cite{Dupuy_2019} 
+to use streamlines found in peculiar velocity data and find
+superclusters. 
+They makes use of the concept of basins of attraction/repulsion, defined as a
+regions where velocity flows are observed to be inflowing/outflowing
+as consequence of gravitational forces. 
+In practice, they track streamlines in space to define gravitational
+basins of attraction/repulsion.   
+
+\cite{Dupuy_2020} studied in detail the influence of the details in
+the algorithm parameters in the detected gravitational basins. 
+The computation of the streamlines involves the application of a
+fourth order Runge-Kutta method. 
+In this way, obtaining structures using this method is influenced by
+the choice of the integration parameters. 
+The interpretation of basins of attraction or repulsion
+also depends on the direction in which the integration is carried
+out. 
+
+Additionally, the
+influence of a smoothing parameter (named smoothing scale) is also a
+focus of interest in the latter work, and the results found are
+expected to be the same in this paper. 
+
+In this paper we are interested in superclusters, which are defined as
+the union of the elements of the cosmic network that form an
+identifiable structure. 
+Studying this type of structures involves the
+same difficulties of studying the cosmic web as they are not found by
+a unique method. In particular, luminosity density data has been one
+of the selected ways to find and classify superclusters in
+observational data, as presented in \cite{Lietzen_2016} and
+\cite{Bagchi_2017}. In addition, numerical simulations represent a
+powerful in the study of superclusters as they allow investigators to
+test different cosmological parameters and also to consider the time
+evolution of the cosmic web components
+\citep{Einasto_2019,einasto2020evolution}. Our main interest remains
+in a kinematic approach to this problem, which will let us introduce a
+supercluster finding algorithm that uses the divergence of the
+velocity field of DM halos. 
+
+
 
 The research developed by \cite{2014Natur.513...71T} corresponds to a kinematic approach to the problem of defining superclusters in observational data. 
-This concept was exploited by \cite{Dupuy_2019} and transformed into a new way to classify the cosmic web using streamlines found in peculiar velocity data. The latter work makes use of the concept of basins of attraction, defined as a place or region of space where internal flows are observed as a consequence of gravitational forces. In addition, basins of repulsion, which correspond to regions with gravitational repealing motions, are also considered. Thus, the methodology used consists of tracking the streamlines for each region of space and then, from the convergence points of these lines, being able to establish the gravitational basins of attraction (or repulsion). 
-The computation of the streamlines involves the application of a fourth order Runge-Kutta method. In this way, obtaining structures using this method is influenced by the choice of the integration parameters. The interpretation of basins of attraction or repulsion also depends on the direction in which the integration is carried out. \cite{Dupuy_2020} studies deeply the influence of the algorithm parameters in the detected gravitational basins. Additionally, the influence of a smoothing parameter (named smoothing scale) is also a focus of interest in the latter work, and the results found are expected to be the same in this paper.
+
+
+
+
+
+
+In the same way, a joint work between the
+observations and the simulations has been carried out in order to
+fully understand this pattern in the universe. We can find an example
+of the observational approach in \cite{Kim_2016}, where the
+filamentary structures surrounding the Virgo cluster are analysed
+using data from the HyperLeda database. 
+Other examples of this
+approach can be found in \cite{Santiago_Bautista_2020},
+\cite{van_de_Weygaert_2014} and \cite{Lares_2017}. Finally, a
+computational approach is presented in
+\cite{10.1111/j.1365-2966.2009.14885.x} where a dynamical
+classification of the cosmic web is applied to cosmological N-body
+simulations.  
 
 We aim to quantify if Laniakea can be considered as a typical or atypical 
-structure in our current cosmological context. In order to achieve this objective, we will apply a watershed algorithm \citep{BeucherWatershed1979} which runs over the divergence field of the velocity and segments the simulations used into isolated groups. The process of structure finding using watershed methods is explored in \cite{10.1111/j.1365-2966.2007.12125.x} where a extensive analysis is made to connect image processing with astrophysics. In particular, we will implement a watershed by immersion algorithm, which depends only on the values of the divergence field. 
+structure in our current cosmological context. In order to achieve
+this objective, we will apply a watershed algorithm
+\citep{BeucherWatershed1979} which runs over the divergence field of
+the velocity and segments the simulations used into isolated
+groups. The process of structure finding using watershed methods is
+explored in \cite{10.1111/j.1365-2966.2007.12125.x} where a extensive
+analysis is made to connect image processing with astrophysics. In
+particular, we will implement a watershed by immersion algorithm,
+which depends only on the values of the divergence field.  
 
-The following discussion presents a general approach to the methodology to be used in the work, as well as the results found. In this way, section 2 presents the numerical tools used, including the operation of the finder algorithm, and section 3 presents the results found after applying our method to different simulations.
-
+The following discussion presents a general approach to the
+methodology to be used in the work, as well as the results found. In
+this way, section 2 presents the numerical tools used, including the
+operation of the finder algorithm, and section 3 presents the results
+found after applying our method to different simulations. 
 
 
 \section{Numerical Setup}
