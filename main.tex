@@ -50,21 +50,7 @@ $^{2}$ Center for Neuroprosthetics and Brain Mind Institute, Swiss
 %%%%%====MYMARK========
 \maketitle
 \begin{abstract}
-Galaxy superclusters can be defined as regions of converging galaxy
-velocity flows. 
-Such structures have quantifiable properties such as mass, volume and
-shape. 
-The most precise quantification of such an object has been done on our local supercluster, Laniakea. 
-In this work the properties of Laniakea are compared to the
-expectations from a Lambda Cold Dark Matter Universe. 
-Cosmological N-body simulations are used in order to find cosmic flow
-fields of dark matter halos and find the superclusters using a
-watershed algorithm. 
-In addition, the distributions of volume, mass and shape of the
-superclusters found in those simulations are quantified and compared
-with known values for Laniakea. 
-In all those cases Laniakea is found in the tail of the distribution,
-placing it as an atypical object in a cosmological context.  
+Galaxy superclusters can be defined as regions of converging galaxy velocity flows. Such structures have quantifiable properties such as mass, volume and shape. The most precise quantification of such an object has been done on our local supercluster, Laniakea. In this work the properties of Laniakea are compared to the expectations from a $\Lambda$CDM Universe. Cosmological N-body simulations are used in order to find cosmic flow fields of dark matter halos and find superclusters using a watershed algorithm. In addition, the distributions of volume of the superclusters found in those simulations are quantified and compared with known values for Laniakea. The latter process was done for both Planck 2015 cosmologies and cosmologies with extreme values of $\Omega_m$ and $\sigma_8$ parameters. In all those cases Laniakea is found on the right side of the distribution, placing it as an atypical object in a cosmological context. 
 \end{abstract}
 
 \begin{keywords}
@@ -82,23 +68,32 @@ placing it as an atypical object in a cosmological context.
 \section{Introduction}
 % La introduccion y el abstract es lo ultimo que se escribe.
 
+
+Modern cosmology has as a fundamental pillar the idea that the universe, on the largest scales, is isotropic and homogeneous. This cosmological principle is expected to be true once hundreds or thousands of Megaparsecs are considered. However, on lower scales, a very well defined interconnected network of voids, filaments, sheets and galaxy clusters forms the more complex structure in the observable universe, the cosmic web \citep{Bond_1996}. The study of this network has been highly complex over the years due to the difficulties involved in identifying the internal structures of the network. In this way, several approaches has been adopted in order to research about the properties of the cosmic web \citep{Libeskind_2017, coutinho2016network}. In the same way, a joint work between the observations and the simulations has been carried out in order to fully understand this pattern in the universe. We can find an example of the observational approach in \cite{Kim_2016}, where the filamentary structures surrounding the Virgo cluster are analysed using data from the HyperLeda database. Other examples of this approach can be found in \cite{Santiago_Bautista_2020}, \cite{van_de_Weygaert_2014} and \cite{Lares_2017}. Finally, a computational approach is presented in \cite{10.1111/j.1365-2966.2009.14885.x} where a dynamical classification of the cosmic web is applied to cosmological N-body simulations. 
+
+In this paper we are interested in superclusters, which are defined as the union of the elements of the cosmic network that form an identifiable structure. Studying this type of structures involves the same difficulties of studying the cosmic web as they are not found by a unique method. In particular, luminosity density data has been one of the selected ways to find and classify superclusters in observational data, as presented in \cite{Lietzen_2016} and \cite{Bagchi_2017}. In addition, numerical simulations represent a powerful in the study of superclusters as they allow investigators to test different cosmological parameters and also to consider the time evolution of the cosmic web components \citep{Einasto_2019,einasto2020evolution}. Our main interest remains in a kinematic approach to this problem, which will let us introduce a supercluster finding algorithm that uses the divergence of the velocity field of DM halos.
+
 In 2014, astronomers used a map  of peculiar velocities of galaxies to
 define the Laniakea supercluster of galaxies
 \citep{2014Natur.513...71T}.  
 Their main input was the Cosmicflows-2 catalog of distances and radial
 velocities that provide them with coverage of distances up to 400\,Mpc. 
-By applying a Wiener filter they obtained the reconstruction of the
+By applying a Wiener filter \citep{Zaroubi_1999} they obtained the reconstruction of the
 3-dimensional velocity field. They defined and named our local galaxy supercluster, 
 Laniakea, as the region within walls of divergence velocity.  
 Laniakea thus represents the region of in-flowing peculiar velocities
-that include the Milky Way. 
-
-Laniakea has a very isotropic shape. 
-Its radius is approximately $160$\,Mpc and encompasses a mass of
+that include the Milky Way. Laniakea was found to have a very isotropic shape. 
+Its diameter is approximately $160$\,Mpc and encompasses a mass of
 $\approx 10^{17}$\,\Msun.
 
+The research developed by \cite{2014Natur.513...71T} corresponds to a kinematic approach to the problem of defining superclusters in observational data. 
+This concept was exploited by \cite{Dupuy_2019} and transformed into a new way to classify the cosmic web using streamlines found in peculiar velocity data. The latter work makes use of the concept of basins of attraction, defined as a place or region of space where internal flows are observed as a consequence of gravitational forces. In addition, basins of repulsion, which correspond to regions with gravitational repealing motions, are also considered. Thus, the methodology used consists of tracking the streamlines for each region of space and then, from the convergence points of these lines, being able to establish the gravitational basins of attraction (or repulsion). 
+The computation of the streamlines involves the application of a fourth order Runge-Kutta method. In this way, obtaining structures using this method is influenced by the choice of the integration parameters. The interpretation of basins of attraction or repulsion also depends on the direction in which the integration is carried out. \cite{Dupuy_2020} studies deeply the influence of the algorithm parameters in the detected gravitational basins. Additionally, the influence of a smoothing parameter (named smoothing scale) is also a focus of interest in the latter work, and the results found are expected to be the same in this paper.
+
 We aim to quantify if Laniakea can be considered as a typical or atypical 
-structure in our current cosmological conext.
+structure in our current cosmological context. In order to achieve this objective, we will apply a watershed algorithm \citep{BeucherWatershed1979} which runs over the divergence field of the velocity and segments the simulations used into isolated groups. The process of structure finding using watershed methods is explored in \cite{10.1111/j.1365-2966.2007.12125.x} where a extensive analysis is made to connect image processing with astrophysics. In particular, we will implement a watershed by immersion algorithm, which depends only on the values of the divergence field. 
+
+The following discussion presents a general approach to the methodology to be used in the work, as well as the results found. In this way, section 2 presents the numerical tools used, including the operation of the finder algorithm, and section 3 presents the results found after applying our method to different simulations.
 
 
 
@@ -208,9 +203,9 @@ with a volume computed by counting the number of voxels belonging to it.
 
 \begin{figure*}
     \centering
-    \includegraphics[width=220pt]{smooth_watershed_01.pdf}
+    \includegraphics[width=212pt]{smooth_watershed_01.pdf}
     \includegraphics[width=211pt]{smooth_watershed_05.pdf}
-    \caption{Figures on top show a random (300\,\Mpch)$^2$ cut on the
+    \caption{Figures on top show a random (200\,\Mpch)$^2$ cut on the
       X axis of the divergence grid for two different values of
       $\sigma_s$. Figures on the bottom show the classification made
       by the Watershed method for the two regions shown on top and
@@ -266,7 +261,7 @@ grid is shown but smoothed with $\sigma_s$ = 2\,\Mpch and $\sigma_s$ =
 of this parameter on the groups selected by watershed algorithm
 (bottom diagrams), but this is discussed in the next section. These
 plots show a random section of the divergence grid with size
-(300\,\Mpch)$^2$. With small $\sigma_{s}$ many structures are visible
+(200\,\Mpch)$^2$. With small $\sigma_{s}$ many structures are visible
 in a fine and defined network in the divergence grid, while large
 $\sigma_{s}$ differentiates big structures of high accretion,
 i.e. high negative, with barely any resolution of smaller
@@ -320,7 +315,7 @@ and \ref{fig:HISTVMD2} shows the effects of changing the value of the
 Gaussian length on the volumes of the superclusters detected. 
 
 As mentioned in section \ref{VDF effects} figure \ref{fig:1Pert} shows
-a random section of size (300\,\Mpch)$^2$ of the divergence grid using
+a random section of size (200\,\Mpch)$^2$ of the divergence grid using
 $\sigma_s$ = 2\,\Mpch and $\sigma_s$ = 10\,\Mpch. Moreover, this
 figure also presents the groups found by the algorithm corresponding
 to this section, with a circle of the same diameter as Laniakea in the
@@ -486,51 +481,21 @@ size and behaviour.
 \section{Conclusions}
 \label{sec:conclusions}
 
-A recent result in this branch was the definition of our local supercluster Laniakea made by \cite{2014Natur.513...71T}, who used the velocity flow of galaxies for this purpose. Already having the characteristics of Laniakea, both in form and in mass, the next question would be how common it is among the other superclusters.
 
-We divide the space of the simulation with a grid size close to the
-canonical length of \texttt{10\,Mpc} used in observations to find
-Laniakea, which corresponds to a grid of [$120 \times 120 \times
-  120$]. Once the velocity field is obtained, it is smoothed with
-Gaussian kernels of different width $\sigma_{Vox}$. Then the VDC is
-computed for each gridpoint. In order to differentiate structures from
-the order of the observable superclusters i.e. structures of about
-10\,\Mpch, we use $\sigma_{Vox} = 1$\,Vox. Using larger values of
-$\sigma_{Vox}$ does \texttt{NOT} yield erroneous information, but
-information with little usefulness about formation in a much larger
-scale.   
+Throughout this investigation the main objective was to find a way to classify the Laniakea structure using N-body simulations. Thus, we made use of the dark matter halos velocity field divergence for the classification of structures in space. In addition, in order to achieve a robust result, different cosmologies were used to obtain the final results of the project.
 
-The implementation of the Watershed algorithm was a complete
-success. It managed to segregate regions based on the divergence
-field. Two parameters, $R_T$ and $Q_T$, are defined to control the
-algorithm and the segregation it makes. $R_T$ is of high relevance
-since it indirectly dictates the number of \emph{origins} that there
-are in the map and, therefore, the number of superclusters that will
-be in the space of the simulation. $Q_T$, on the other hand, does not
-affect the analysis carried out by the algorithm in a meaningful way
-since it rather indirectly defines the top of watershed sweeps that
-must be made before proceeding to classify the voxels by distance. 
 
-With the superclusters segregated and characterized we compare their
-propoerties against Laniakea. We find that our supercluster is
-atypical according to its mass, volume and shape. On the other hand,
-the density of Laniakea seems to be frequent in the supercluster
-population since it is in a range close to the average. The
-populations with which Laniakea is compared within the simulation are
-small, either evaluating its mass, its volume or its shape. This makes
-it difficult to find a supercluster in the simulation that is similar
-to Laniakea within the ranges defined in Figures \ref{fig:HISTVMD1}
-and \ref{fig:INERTIA} at the same time. The probability of finding in
-the simulation a supercluster similar to Laniakea in those three
-aspects is a little lower than 0.07\,\%. 
+First, a clear influence of the $\sigma_s$ parameter was observed when performing the segmentation process of the spatial grid through the Watershed algorithm. The latter behavior is produced by a great variation on the divergence field once this parameter is changed, as seen in figures \ref{fig:smooth_grad_dist} and \ref{fig:std_smooth}. In particular, the higher the value of $\sigma_s$, the larger the size of the convergent galaxy flow structures found in the simulations. As a consequence, when applying the algorithm with a greater $\sigma_s$ it is found that the superclusters are larger (behavior presented in figure \ref{fig:1Pert}).
 
-Regarding future work, we strongly suggest to experiment with the
-initial conditions of the problem and with the definition of the
-grid. A proposal is to define a grid with distances less than
-10\,\Mpch, that is, with a higher value of $N_{side}$ and therefore
-with greater definition. You can also try different mass cuts for the
-Halos, different simulations of the same cosmology used in this work
-or even simulations in the context of different cosmologies. 
+However, the correct value of $\sigma_s$ corresponds to a physical choice. In particular, a value approximately of 10\Mpch. Therefore, once this parameter is adjusted, our algorithm has no free parameters that affect the generated distribution. Moreover, in order to classify the structure of Laniakea, we decided to use two types of cosmologies. 
+
+The first set of cosmologies used corresponds to a generally accepted set of cosmological parameters given by Planck 2015 study. The volume distributions generated using this set of simulations, shown in figure \ref{fig:planck}, gives us a first idea that Laniakea is an atypical supercluster in terms of its size. On the other hand, a set of simulations with different cosmological parameters was used to evaluate their impact on the distributions. In particular, simulations using extreme values of $\Omega_m$ and $\sigma_s$ were selected. The resulting volume distributions are presented in figure \ref{fig:diferentes}. The same behavior as in Planck 2015 simulations is observed. 
+
+In conclusion, we point out that the algorithm used in effect allows an effective partition of the simulations using the divergence field. Furthermore, it worked properly to allow us classifying Laniakea as an atypical supercluster in a cosmological context.
+
+
+
+
 
 
 
