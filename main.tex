@@ -98,13 +98,13 @@ The volume spanned by Laniakea is close to isotropic with an
 approximate diameter of $160$ Mpc encompassing a mass of
 $\approx 10^{17}$ \Msun.
 
-From a general omputational point of view the definition of Laniakea poses
+From a general computational point of view the definition of Laniakea poses
 an interesting problem, namely defining regions of converging velocity
 flows.
 This conceptual statement has been recently exploited by \cite{Dupuy_2019} 
 to use streamlines found in peculiar velocity data and find
 superclusters. 
-They makes use of the concept of basins of attraction/repulsion, defined as a
+They make use of the concept of basins of attraction/repulsion, defined as
 regions where velocity flows are observed to be inflowing/outflowing
 as consequence of gravitational forces. 
 In practice, they track streamlines in space to define gravitational
@@ -134,7 +134,7 @@ a unique method. In particular, luminosity density data has been one
 of the selected ways to find and classify superclusters in
 observational data, as presented in \cite{Lietzen_2016} and
 \cite{Bagchi_2017}. In addition, numerical simulations represent a
-powerful in the study of superclusters as they allow investigators to
+powerful tool in the study of superclusters as they allow investigators to
 test different cosmological parameters and also to consider the time
 evolution of the cosmic web components
 \citep{Einasto_2019,einasto2020evolution}. Our main interest remains
@@ -252,6 +252,15 @@ We highlight that once the divergence field is provided, this algorithm
 does not have free parameters based either on divergence, density or distance thresholds. 
 Finally, each group found by the algorithm is interpreted as a supercluster 
 with a volume computed by counting the number of voxels belonging to it.
+
+\subsection{The effective smoothing scale in Cosmicflows-2 velocity reconstrution}
+
+The results of the watershed algorithm are strongly dependent on the
+smoothing scale used to estimate the compute the velocity field.
+We need to have an estimate of the effective smoothing scale in the observations in order to compare our results against Laniakea.
+
+\cite{2015MNRAS.452.1052L} used the velocity reconstruction on cosmicflows-2 data, the same reconstruction used to define Laniake.
+The paper includes a computation of the dimensionless shear tensor 
 
 \section{Results}
 
