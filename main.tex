@@ -18,7 +18,7 @@
 \newcommand{\kms}{\,{\rm km}\ s$^{-1}$\,}
 
 %%%%%%%%%%%%%%%%%%% TITLE PAGE %%%%%%%%%%%%%%%%%%%
-\title[Laniakea in a cosmological context]{The Laniakea supercluster in a cosmological context}
+\title[Laniakea in a cosmological context]{Laniakea as an extreme supercluster in LCDM}
 \author[Pe\~naranda-Rivera et al.]{
 \parbox[t]{\textwidth}{
     {J. D. Pe\~naranda-Rivera $^1$,} 
@@ -260,7 +260,20 @@ smoothing scale used to estimate the compute the velocity field.
 We need to have an estimate of the effective smoothing scale in the observations in order to compare our results against Laniakea.
 
 \cite{2015MNRAS.452.1052L} used the velocity reconstruction on cosmicflows-2 data, the same reconstruction used to define Laniake.
-The paper includes a computation of the dimensionless shear tensor 
+The paper includes a computation of the dimensionless shear tensor $\Sigma_{\alpha\beta}=-\frac{1}{2H_0}\left(\frac{\partial v_\alpha}{\partial r_\beta}+\frac{\partial v_\beta}{\partial v_\alpha}\right)$ where $\alpha$ and $\beta$ represent the three cartesian components of the velocity $v$ and the position $r$ and $H_0$ is the Hubble-Lema\^itre constant.
+With this definition the trace of the shear tensor is equal to minus the divergence of the velocity field.
+
+
+The authors say that the formal reconstruction for the Wiener Filter velocity reconstruction is $5$\Mpch and the derivatives are computed over scales of $2.5$\Mpch. 
+We use these two values as a bracket to be used later at the moment of comparing our results against observations.
+
+A second piece of evidence that help us to pin down the effective smoothing scale comes from their reports on the numerical values of the shear tensor eigenvalues.
+The authors found that the trace of the dimensionless shear tensor at the Local Group and Cen A location to be $0.030$ and $0.015$, respectively. 
+These values translate into $3.0$ and $1.5$ in units of km $h$ Mpc$^{-1}$ s$^{-1}$. 
+In Section XX we show that the divergence distributions in our calculations with a similar order of magnitude values correspond to 
+to smoothing scales smaller than $6$\Mpch.
+
+
 
 \section{Results}
 
@@ -538,41 +551,6 @@ size and behaviour.
 
 
 
-\begin{figure*}
-    \centering
-    \includegraphics[width=345pt]{vol_planck.pdf}
-    \caption{On this plot the volume of Laniakea is compared with the
-      volumes of superclusters found using the watershed algorithm for
-      5 simulations using Planck parameters and $\sigma_s =
-      10$\,\Mpch. A vertical line is showing the correspondent volume
-      of Laniakea is also shown. An atypical behaviour in the volume
-      of Laniakea is observed as it is larger than most of the
-      superclusters found by the algorithm. }  
-    \label{fig:planck}
-\end{figure*}
-
-
-\begin{figure*}
-    \centering
-    \includegraphics[width=345pt]{vol_different_simulations.pdf}
-    \caption{On this plot the volume of Laniakea is compared with the
-      volumes of superclusters found using the watershed algorithm for
-      a set of 4 simulations from Abacus\_Cosmos\_720box catalog given
-      by extreme values of $\sigma_8$ and $\Omega_m$. In addition, a
-      reference simulation from Abacus\_Cosmos\_720box\_planck catalog
-      is considered. A vertical line is showing the correspondent
-      volume of Laniakea is also shown. The simulations used in this
-      chart were smoothed using $\sigma_s = 10$\,\Mpch and the
-      $\sigma_8$ and $\Omega_m$ values chosen are presented in the
-      graph. An atypical behaviour in the volume of Laniakea is
-      observed as it is larger than every supercluster found by the
-      algorithm.}  
-    \label{fig:diferentes}
-\end{figure*}
-
-
-
-
 \section{Conclusions}
 \label{sec:conclusions}
 
@@ -589,8 +567,19 @@ The first set of cosmologies used corresponds to a generally accepted set of cos
 In conclusion, we point out that the algorithm used in effect allows an effective partition of the simulations using the divergence field. Furthermore, it worked properly to allow us classifying Laniakea as an atypical supercluster in a cosmological context.
 
 
+\begin{figure*}
+    \centering
+    \includegraphics[width=525pt]{watershed_sigma_06_vmax_x.pdf}
+    \caption{.}  
+    \label{fig:Wat_06_vel_x}
+\end{figure*}
 
-
+\begin{figure*}
+    \centering
+    \includegraphics[width=400pt]{grad_dist_sigma_6_vmax_x.pdf}
+    \caption{.}  
+    \label{fig:Wat_06_vel_x}
+\end{figure*}
 
 
 
