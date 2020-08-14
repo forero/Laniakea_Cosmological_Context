@@ -18,7 +18,7 @@
 \newcommand{\kms}{\,{\rm km}\ s$^{-1}$\,}
 
 %%%%%%%%%%%%%%%%%%% TITLE PAGE %%%%%%%%%%%%%%%%%%%
-\title[Laniakea in a cosmological context]{Laniakea as an extreme supercluster in LCDM}
+\title[Superclusters in velocity divergence fields]{Superclusters in velocity divergence fields}
 \author[Pe\~naranda-Rivera et al.]{
 \parbox[t]{\textwidth}{
     {J. D. Pe\~naranda-Rivera $^1$,} 
@@ -229,7 +229,21 @@ $10$, $14$ and $20$.
 
 
 
+\begin{figure*}
+    \centering
+    \includegraphics[width=240pt]{plot_power_spectrum_field_rs.pdf}
+    \includegraphics[width=240pt]{plot_power_spectrum_tracers_rs.pdf}
+    \caption{Power spectrum}
+    \label{fig:power_spectrum}
+\end{figure*}
 
+\begin{figure*}
+    \centering
+    \includegraphics[width=240pt]{plot_corrfunc_field_rs.pdf}
+    \includegraphics[width=240pt]{plot_corrfunc_tracers_rs.pdf}
+    \caption{Autocorrelation function}
+    \label{fig:power_spectrum}
+\end{figure*}
 
 \subsection{Watershed algorithm: Supercluster-Finder}
 
@@ -279,32 +293,14 @@ to smoothing scales smaller than $6$\Mpch.
 
 
 
-\begin{figure}
-    \centering
-    \includegraphics[width=240pt]{smooth_vel_dist.pdf}
-    \caption{Distribution of the interpolated and smoothed velocity
-      magnitude for different values of the smoothing scale $\sigma_{s}$.}
-    \label{fig:smooth_vel_dist}
-\end{figure}
 
 
 
 \begin{figure}
     \centering
-    \includegraphics[width=240pt]{smooth_grad_dist.pdf}
-    \caption{Distribution of the velocity divergence field
-      for different values of the smoothing scale $\sigma_s$.}
-    \label{fig:smooth_grad_dist}
-\end{figure}
-
-
-
-\begin{figure}
-    \centering
-    \includegraphics[width=240pt]{std_smooth.pdf}
-    \caption{Standard deviation of the divergence field of
-      as a function of the smoothing scale $\sigma_s$.}
-    \label{fig:std_smooth}
+    \includegraphics[width=240pt]{correlation_length.pdf}
+    \caption{Correlation length $R_{\delta\delta}$ as a function of the truncation scale $R_s$.}
+    \label{fig:correlation length}
 \end{figure}
 
 
