@@ -6,6 +6,7 @@
 \usepackage{amsmath}	% Advanced maths commands
 \usepackage{amssymb}	% Extra maths symbols
 \usepackage{array}
+\usepackage{physics}
 
 \usepackage{multirow}
 \usepackage{multicol}
@@ -18,7 +19,7 @@
 \newcommand{\kms}{\,{\rm km}\ s$^{-1}$\,}
 
 %%%%%%%%%%%%%%%%%%% TITLE PAGE %%%%%%%%%%%%%%%%%%%
-\title[Superclusters in velocity divergence fields]{Superclusters in velocity divergence fields}
+\title[Superclusters in velocity divergence fields]{Finding superclusters in velocity divergence fields}
 \author[Pe\~naranda-Rivera et al.]{
 \parbox[t]{\textwidth}{
     {J. D. Pe\~naranda-Rivera $^1$,} 
@@ -183,7 +184,34 @@ operation of the finder algorithm, and section 3 presents the results
 found after applying our method to different simulations. 
 
 
-\section{Numerical Setup}
+\section{Divergence field characterization}
+
+We use the velocity divergence field, $\div \textbf{v}$, as the main quantity to study over cosmological scales.
+From it we define the scalar field, $\delta(\textbf{r})$, as follows:
+
+\begin{equation}
+    \delta (\textbf{r})\equiv -\frac{1}{H_0 f} \div \bf{v},
+    \label{eq:div}
+\end{equation}
+where $H_0$ is the Hubble parameter and $f$ is the growth rate of structure.
+This is a purely computational definition motivated by the linear theory of structure formation where the equality between the two sides of Equation (\ref{eq:div}) is expected to actually hold.
+
+We compute the power spectrum of this scalar field and denote it as $P(k)$. 
+From this power spectrum we compute the auto-correlation function as
+\begin{equation}
+    \xi_{\delta\delta} (r) = \frac{1}{2\pi^2}\int_{0}^{\infty} k^2 P(k)\frac{\sin kr}{kr} dk.
+\end{equation}
+
+From the autocorrelation fuction we define a coherence length, $R_{\delta\delta}$ as the value of $r$ at which $\xi_{\delta\delta}(r)$ drops at half the value it has for $r\rightarrow0$. Computationally speaking we compute the autocorrelation function for $0.1\Mpch \leq r \leq 100 \Mpch$ and $R_{\delta\delta}$ is defined by the value at which
+\begin{equation}
+\frac{\xi_{\delta\delta}(R_{\delta\delta})}{\xi_{\delta\delta}(0.1\Mpch)}=\frac{1}{2}.    
+\end{equation}
+
+In what follows we show the explicit shape for $P(k)$, $\xi_{\delta\delta}(r)$, but summarize our results on the superclusters only as a function of $R_{\delta\delta}$. 
+
+
+
+
 \label{sec:numerical_setup}
 \subsection{Cosmological N-body data}
 
