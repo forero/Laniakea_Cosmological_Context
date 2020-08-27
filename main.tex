@@ -204,6 +204,7 @@ From the auto-correlation function we define a coherence length, $R_{\delta\delt
 Computationally speaking, we compute the auto-correlation function in the interval $1\Mpch \leq r \leq 100 \Mpch$ and $R_{\delta\delta}$ is defined by the value at which
 \begin{equation}
 \xi_{\delta\delta}(R_{\delta\delta})  =\frac{1}{10} \xi_{\delta\delta}(1 \Mpch).    
+\label{eq:autocorrelation}
 \end{equation}
 
 We show in the following sections how using this definition we obtain a linear relationship between the auto-correlation length, $R_{\delta\delta}$, and the average super-cluster size.
@@ -213,12 +214,12 @@ We show in the following sections how using this definition we obtain a linear r
 \begin{tabular}{c c c c c}\hline
 Field &  $v_{max}$ & $L_b$ & $R_s$ & $N_c$\\
 type & (km s$^{-1}$) & (\Mpch) & (\Mpch) & \\\hline
-N-body & $150$ & $720$ & \{$6$, $12$, $30$, $48$, $60$\} & $120$\\
-N-body & $200$ & $720$ & \{$5$, $10$, $20$, $30$, $40$\} & $144$\\
-N-body & $300$ & $720$ & \{$2$, $6$, $10$, $14$, $20$\} & $360$\\
 Gaussian & - & $720$ & \{$2$, $6$, $10$, $14$, $20$\} & $360$\\
 Gaussian & - & $300$ & \{$3$, $9$, $12$, $15$, $18$\} & $100$\\
-Gaussian & - & $1000$ & \{$10$, $15$, $20$, $30$, $40$\} & $100$\\\hline
+Gaussian & - & $1000$ & \{$10$, $15$, $20$, $30$, $40$\} & $100$\\
+N-body & $150$ & $720$ & \{$6$, $12$, $30$, $48$, $60$\} & $120$\\
+N-body & $200$ & $720$ & \{$5$, $10$, $20$, $30$, $40$\} & $144$\\
+N-body & $300$ & $720$ & \{$2$, $6$, $10$, $14$, $20$\} & $360$\\\hline
 \end{tabular}
 \caption{Summary of the $30$ different dimensionless divergence fields used in this Letter. 
 The Field type describes whether the field comes from the Abacus Simulations (N-body) or it is generated from the power spectrum (Gaussian). $v_{max}$ only applies to the N-body fields and refers to the minimum value of a halo maximum circular velocity to include it in the peculiar velocity field interpolation.
@@ -229,24 +230,25 @@ $L_b$ is the box size of the cubic volume used to compute the divergence. $R_{s}
 
 \begin{figure*}
     \centering
+    \includegraphics[width=240pt]{power_spectrum_gauss_1000_100.pdf}
+    \includegraphics[width=240pt]{corr_func_gauss_1000_100.pdf}
+    \caption{Power spectrum (left) and auto-correlation function (right) for dimensionless divergence fields computed from linearly extrapolated power spectrum
+    The size of the cubic box is $L_b=1000$ \Mpch and the number of voxels is $100^3$.
+    Each line corresponds to a different truncation wavelength in the power spectrum of $1/R_s$.
+    \label{fig:gaussian}}
+\end{figure*}
+
+\begin{figure*}
+    \centering
     \includegraphics[width=240pt]{power_spectrum_nbody_720_360.pdf}
     \includegraphics[width=240pt]{corr_func_nbody_720_360.pdf}
-    \caption{Power spectrum (left) and auto-correlation function (right) for one of the $\delta$ fields computed using velocity interpolation from N-body data.
-    The size of the cubic box is $L_b=720$ \hMpc and the number of voxels is $360^3$.
+    \caption{Power spectrum (left) and auto-correlation function (right) for dimensionless divergence fields computed using velocity interpolation from N-body data.
+    The size of the cubic box is $L_b=720$ \Mpch and the number of voxels is $360^3$.
     Only dark matter haloes with maximum circular velocity larger than $300$ \kms were included in the velocity interpolation.
     Each line corresponds to a different Gaussian smoothing with length scale $R_s$.}
     \label{fig:nbody}
 \end{figure*}
 
-\begin{figure*}
-    \centering
-    \includegraphics[width=240pt]{power_spectrum_gauss_1000_100.pdf}
-    \includegraphics[width=240pt]{corr_func_gauss_1000_100.pdf}
-    \caption{Power spectrum (left) and auto-correlation function (right) for one of the $\delta$ fields computed from linearly extrapolated power spectrum
-    The size of the cubic box is $L_b=1000$ \hMpc and the number of voxels is $100^3$.
-    Each line corresponds to a different truncation wavelength in the power spectrum of $1/R_s$.}
-    \label{fig:gaussian}
-\end{figure*}
 
 
 \section{Divergence Fields on a Grid}
@@ -286,11 +288,11 @@ Table \ref{table:values} summarizes the different values for those parameters.
 
 \section{Watershed Superclusters}
 
-We find the superclusters using a watershed algorithm \citep{BeucherWatershed1979} on the velocity divergence field.
+We find the superclusters using a watershed algorithm \citep{BeucherWatershed1979} on the dimensionless divergence fields.
 The algorithm segments the whole volume by assigning each voxel to a unique supercluster. 
 
 Our implementation works as follows. 
-We sweep the cells in the divergence grid from the lowest values to the highest, i.e. from the high density regions with converging flows to the lowest density regions with divergent flows.
+We sweep the cells in the dimensionless divergence grid from the highest values to the lowest, i.e. from the high density regions with converging flows to the lowest density regions with divergent flows.
 For the $i$-th cell under consideration we check whether its 26 neighbors have already been assigned to a group. 
 If all the neighbors are unassigned, then this $i$-th cell starts a new group; if the majority of already assigned cells belongs to the $n$-th group, then this cell belongs to that group.
 In case of a draw between groups, the cell is assigned to the supercluster with the lowest $n$ value.
@@ -308,11 +310,38 @@ We describe the supercluster population in a divergence field by the average val
 
 \section{Results}
 
+We start by illustrating the different beheviour between the Gaussian and N-body divergence fields.
+Figure \ref{fig:gaussian} shows the power spectrum and the auto-correlation function for five different Gaussian fields generated over a box with side $L_b=1000$ \Mpch and $100^3$ voxels.
+The five different curves correspond to different wavelength cuts in the power spectrum  $1/R_s$, with $R_s$ in the range from 10 to 40 \Mpch.
+From the right panel in the Figure it is evident that the auto-correlation length increases with larger $R_{s}$ values.
 
-The corresponding power spectra and autocorrelation function are presented in the right panel of Figure \ref{fig:power_spectrum}
- and Figure \ref{fig:autocorrelation}, respectively.
- 
- 
+Figure \ref{fig:nbody} shows the power spectrum and auto-correlation function for N-body fields generated 
+from dark matter haloes with a maximum circular velocity larger than $300$ \kms, with their peculiar velocities interpolated over on a cubic mesh of side $L_b=720$ \hMpc and  $360^3$ voxels.
+Each curve correspond to a different scale $R_s$ for the Gaussian smoothing filter.
+In this case, the overall normalization of the power spectra is smaller compared to the normalization in the Gaussian fields, as it is expected from the nature of the biased tracers.
+However, the right panel also shows that the auto-correlation length should increase with largest $R_{s}$ values.
+
+Figure \ref{fig:correlation length} shows the relationship between the truncation/smoothing scale $R_s$ and the auto-correlation length $R_{\delta\delta}$.
+We find that below $R_{s} < 20$\Mpch the two scales almost follow a linear proportionality.
+Beyond that scale, the Gaussian fields continue tha linearity up to $R_{\delta\delta}\approx 130$\Mpch, while the N-body fields saturate around $R_{\delta\delta}\approx 100$\Mpch.
+
+Our most important result is summarized in Figure \ref{fig:money_plot}.
+The plot shows that 
+the average super-cluster size linearly follows the the auto-correlation length as defined in Equation \ref{eq:autocorrelation}.
+The linear correlations holds both for Gaussian and N-body fields over one order of magnitude from $10$\Mpch up to $100$\Mpch.
+In other words, the auto-correlation formalism over the velocity divergence fields is able to estimate the typical super-cluster size.
+We parameterize this strong linear dependence  as 
+$\langle R_{\rm{eq}}\rangle=\alpha R_{\delta\delta}$, the best fit gives $\alpha=1.2\pm0.1$ for Gaussian fields and $\alpha=0.9\pm 0.1$ for N-body fields.
+    
+We finalize this Section by showing how the super-cluster size distribution differs in Gaussian fields compared to the N-body fields.
+Figure \ref{fig:Nclusters} shows the probability density function for the equivalent radius distributions from two different divergence fields.
+We pick these two distributions because they have a similar mean value $\approx80$\Mpch. 
+However, the distribution in the N-body field is wider than it is for the Gaussian field, meaning that there are more super-clusters with values well above/below the average in the non-linear divergence field than in the Gaussian field. 
+
+
+What does these results have to say about observations?
+The horizontal stripe in Figure \ref{fig:money_plot} shows recent estimates of Laniakea's equivalent radius. If Laniakea is to be considered as an average supercluster, then our results predict that the auto-correlation length in the divergence fields from the Cosmicflows data should be on the order of 65 to 90 \Mpch.
+Having a measurement of the auto-correlation length on the divergence field from cosmicflows, would allow us to place Laniakea in a cosmological context and quantify to what extent it is a typical supercluster in a cosmological context.
  
 
 \begin{figure}
@@ -323,68 +352,42 @@ The corresponding power spectra and autocorrelation function are presented in th
     \label{fig:correlation length}
 \end{figure}
 
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=240pt]{summary_watershed.pdf}
+    \caption{Average equivalent radius as a function of the auto-correlation length in their parent divergence field.
+    The relationship between the two quantities is close to linear for auto-correlation lengths below $100$ \Mpch. \label{fig:money_plot}}
+\end{figure}
+
+
  
 \begin{figure}
     \centering
     \includegraphics[width=240pt]{sizes_histogram.pdf}
-    \caption{Equivalent radius distributions for a Gaussian Field and a N-body field.
-    In both cases the average value for the equivalent radius are close to $80$\Mpch. 
-    The shapes are different; the Gaussian field produces a narrower, closer to Gaussian, distribution than the N-body field. }  
+    \caption{Equivalent radius distributions from dimensionless divergence fields derived from a Gaussian random field and a N-body simulation.
+    In both cases the average value for the equivalent radius is close to $80$\Mpch. 
+    The distributions shapes are different; the Gaussian field produces a narrower, closer to Gaussian, distribution than the N-body field. }  
     \label{fig:Nclusters}
 \end{figure}
 
 
-\begin{figure*}
-    \centering
-    \includegraphics[width=330pt]{summary_watershed.pdf}
-    \caption{Average equivalent radius as a function of the auto-correlation length in their parent divergence field.
-    The relationship between the two quantities is close to linear for auto-correlation lengths below $100$ \Mpch. With the parameterization $\langle R_{\rm{eq}}\rangle=\alpha R_{\delta\delta}$, the best fit gives $\alpha=1.2\pm0.1$ for Gaussian fields and $\alpha=0.9\pm 0.1$ for N-body fields.
-    \label{fig:Nclusters}.
-    The horizontal stripe shows recent estimates of Laniakea's equivalent radius. If Laniakea is to be considered as an average supercluster, the the auto-correlation length in the divergence fields from the Cosmicflows data should be on the order of 65 to 90 \Mpch.}
-\end{figure*}
 
+\section{Conclusion}
 
+Super-clusters in velocity fields are usually defined as regions of converging peculiar velocity flows.
+The spatial scale over which the velocity field is coherent thus defines the properties of these converging flow basins.
+Larger coherence length translates into larger super-clusters.
 
-\section{Discussion}
+In this Letter we presented one possible way to unify and quantify this picture.
+Starting from the divergence of the velocity field, we compute its auto-correlation function to give a precise definition of the coherence scale as an auto-correlation length. 
+On the other hand watershed partitioning over the velocity divergence field produces the super-clusters, from which we can compute an average size.
 
-The selected superclusters has a significant dependence on the choice of $\sigma_s$. Therefore, if we want to compare the classification made by the algorithm with reported volume measures for Laniakea, we must choose wisely the value of the Gaussian length. Thus, the value reported by \cite{2014Natur.513...71T} in his studies on CosmicFlows-2 data is used. From now on, the value of the Gaussian length is fixed and equals 10\Mpch. 
+We tested this picture using very different divergence fields (Gaussian and non-linear from N-body simulations) to find that the typical super-clusters size linearly follows the auto-correlation length.
+This results holds for one order of magnitude from $10$\Mpch up to $100$\Mpch.
 
-
-
-\cite{2015MNRAS.452.1052L} used the velocity reconstruction on cosmicflows-2 data, the same reconstruction used to define Laniake.
-The paper includes a computation of the dimensionless shear tensor $\Sigma_{\alpha\beta}=-\frac{1}{2H_0}\left(\frac{\partial v_\alpha}{\partial r_\beta}+\frac{\partial v_\beta}{\partial v_\alpha}\right)$ where $\alpha$ and $\beta$ represent the three cartesian components of the velocity $v$ and the position $r$ and $H_0$ is the Hubble-Lema\^itre constant.
-With this definition the trace of the shear tensor is equal to minus the divergence of the velocity field.
-
-
-The authors say that the formal reconstruction for the Wiener Filter velocity reconstruction is $5$\Mpch and the derivatives are computed over scales of $2.5$\Mpch. 
-We use these two values as a bracket to be used later at the moment of comparing our results against observations.
-
-A second piece of evidence that help us to pin down the effective smoothing scale comes from their reports on the numerical values of the shear tensor eigenvalues.
-The authors found that the trace of the dimensionless shear tensor at the Local Group and Cen A location to be $0.030$ and $0.015$, respectively. 
-These values translate into $3.0$ and $1.5$ in units of km $h$ Mpc$^{-1}$ s$^{-1}$. 
-In Section XX we show that the divergence distributions in our calculations with a similar order of magnitude values correspond to 
-to smoothing scales smaller than $6$\Mpch.
-
-
-
-
-
-\section{Conclusions}
-\label{sec:conclusions}
-
-
-Throughout this investigation the main objective was to find a way to classify the Laniakea structure using N-body simulations. Thus, we made use of the dark matter halos velocity field divergence for the classification of structures in space. In addition, in order to achieve a robust result, different cosmologies were used to obtain the final results of the project.
-
-
-First, a clear influence of the $\sigma_s$ parameter was observed when performing the segmentation process of the spatial grid through the Watershed algorithm. The latter behavior is produced by a great variation on the divergence field once this parameter is changed, as seen in figures \ref{fig:smooth_grad_dist} and \ref{fig:std_smooth}. In particular, the higher the value of $\sigma_s$, the larger the size of the convergent galaxy flow structures found in the simulations. As a consequence, when applying the algorithm with a greater $\sigma_s$ it is found that the superclusters are larger (behavior presented in figure \ref{fig:1Pert}).
-
-However, the correct value of $\sigma_s$ corresponds to a physical choice. In particular, a value approximately of 10\Mpch. Therefore, once this parameter is adjusted, our algorithm has no free parameters that affect the generated distribution. Moreover, in order to classify the structure of Laniakea, we decided to use two types of cosmologies. 
-
-The first set of cosmologies used corresponds to a generally accepted set of cosmological parameters given by Planck 2015 study. The volume distributions generated using this set of simulations, shown in figure \ref{fig:planck}, gives us a first idea that Laniakea is an atypical supercluster in terms of its size. On the other hand, a set of simulations with different cosmological parameters was used to evaluate their impact on the distributions. In particular, simulations using extreme values of $\Omega_m$ and $\sigma_s$ were selected. The resulting volume distributions are presented in figure \ref{fig:diferentes}. The same behavior as in Planck 2015 simulations is observed. 
-
-In conclusion, we point out that the algorithm used in effect allows an effective partition of the simulations using the divergence field. Furthermore, it worked properly to allow us classifying Laniakea as an atypical supercluster in a cosmological context.
-
-
+Future tasks that can be performed using the framework presented here include: characterizing the super-clusters shapes, find explicit dependence of super-cluster properties on the cosmological parameters and finding relationships between the divergence based superclusters and segmentation based on graphs defined on the galaxy spatial distribution.
 
 
 \bibliographystyle{mnras}
