@@ -182,10 +182,10 @@ found after applying our method to different simulations.
 
 
 
-\section{Divergence field characterization}
+\section{Auto-correlation length in the divergence field}
 
 We use the velocity divergence field, $\div \textbf{v}$, as the main quantity to study over cosmological scales.
-From it we define the scalar field, $\delta(\textbf{r})$, as follows:
+From it we define a dimensionless divergence field, $\delta(\textbf{r})$, as follows:
 
 \begin{equation}
     \delta (\textbf{r})\equiv -\frac{1}{H_0 f} \div \bf{v},
@@ -194,19 +194,19 @@ From it we define the scalar field, $\delta(\textbf{r})$, as follows:
 where $H_0$ is the Hubble parameter and $f$ is the growth rate of structure.
 This is a purely computational definition motivated by the linear theory of structure formation where the equality between the two sides of Equation (\ref{eq:div}) is expected to actually hold.
 
-We compute the power spectrum of this scalar field and denote it as $P(k)$. 
-From this power spectrum we compute the auto-correlation function as
+We compute the power spectrum of this scalar field and denote it as $P_{\delta}(k)$. 
+From this power spectrum we calculate the auto-correlation function as
 \begin{equation}
-    \xi_{\delta\delta} (r) = \frac{1}{2\pi^2}\int_{0}^{\infty} k^2 P(k)\frac{\sin kr}{kr} dk.
+    \xi_{\delta\delta} (r) = \frac{1}{2\pi^2}\int_{0}^{\infty} k^2 P_{\delta}(k)\frac{\sin kr}{kr} dk.
 \end{equation}
 
-From the autocorrelation fuction we define a coherence length, $R_{\delta\delta}$ as the value of $r$ at which $\xi_{\delta\delta}(r)$ drops at half the value it has for $r\rightarrow0$. Computationally speaking we compute the autocorrelation function in the interval $1\Mpch \leq r \leq 100 \Mpch$ and $R_{\delta\delta}$ is defined by the value at which
+From the auto-correlation function we define a coherence length, $R_{\delta\delta}$ as the value of $r$ at which $\xi_{\delta\delta}(r)$ drops by a factor of then from the value it has for $r\rightarrow0$. 
+Computationally speaking, we compute the auto-correlation function in the interval $1\Mpch \leq r \leq 100 \Mpch$ and $R_{\delta\delta}$ is defined by the value at which
 \begin{equation}
-\frac{\xi_{\delta\delta}(R_{\delta\delta})}{\xi_{\delta\delta}(1 \Mpch)}=\frac{1}{10}.    
+\xi_{\delta\delta}(R_{\delta\delta})  =\frac{1}{10} \xi_{\delta\delta}(1 \Mpch).    
 \end{equation}
 
-In what follows we show the explicit shape for $P(k)$, $\xi_{\delta\delta}(r)$, but summarize our results on the superclusters as a function of $R_{\delta\delta}$. 
-
+We show in the following sections how using this definition we obtain a linear relationship between the auto-correlation length, $R_{\delta\delta}$, and the average super-cluster size.
 
 
 \begin{table*}
@@ -220,9 +220,9 @@ Gaussian & - & $720$ & \{$2$, $6$, $10$, $14$, $20$\} & $360$\\
 Gaussian & - & $300$ & \{$3$, $9$, $12$, $15$, $18$\} & $100$\\
 Gaussian & - & $1000$ & \{$10$, $15$, $20$, $30$, $40$\} & $100$\\\hline
 \end{tabular}
-\caption{Summary of the $30$ different velocity divergence fields used in this Letter. 
-The Field type describes whether the field comes from the Abacus Simulations (N-body) or it is generated from the power spectrum (Gaussian). $v_max$ only applies to the N-body fields and refers to the minimum value in the haloes' maximum circular velocity to be included in the peculiar velocity field interpolation.
-$L_b$ is the box size of the cubic volume used to compute the divergence. $R_{s}$ is the list of lengths describing the gaussian smoothing (in the case of N-body fields) and the wavelentgh $1/R_s$ used to truncate the power spectrum (in the case of Gaussian fields). $N_c$ is the number of grid cells on a side of the interpolated density field.}
+\caption{Summary of the $30$ different dimensionless divergence fields used in this Letter. 
+The Field type describes whether the field comes from the Abacus Simulations (N-body) or it is generated from the power spectrum (Gaussian). $v_{max}$ only applies to the N-body fields and refers to the minimum value of a halo maximum circular velocity to include it in the peculiar velocity field interpolation.
+$L_b$ is the box size of the cubic volume used to compute the divergence. $R_{s}$ lists the gaussian smoothing (in the case of N-body fields) and the wavelength $1/R_s$ used to truncate the power spectrum (in the case of Gaussian fields). $N_c$ is the number of grid cells on a side of the interpolated density field.}
 \label{table:values}
 \end{table*}
 
@@ -252,42 +252,41 @@ $L_b$ is the box size of the cubic volume used to compute the divergence. $R_{s}
 \section{Divergence Fields on a Grid}
 \label{sec:numerical_setup}
 
-In this Letter we use divergence field computed on a cubic grids. 
+We use dimensionless divergence fields computed on a cubic grid. 
 We generate them in two different ways.
-The first kind correspond to Gaussian fields with a truncated power spectrum coming from linear theory.
+The first corresponds to Gaussian fields with a truncated power spectrum coming from linear theory.
 The second kind are fields generated by interpolation of biased tracers and smoothed with a Gaussian filter, with the tracers coming from N-body cosmological simulations.
 In both cases the cosmological parameters correspond to the
 $\Lambda$CDM Planck 2015 cosmology. 
-We use a total of $30$ different divergence fields in this Letter. 
+We use a total of $30$ different divergence fields, summarized in Table \ref{table:values}, generated as follows.
 
-\subsection{Gaussian Fields with Truncated Power Spectrum}
+\subsection{Gaussian fields with truncated power Spectrum}
 
 We start by generating a density field with a power spectrum that follows no-wiggle parameterization of \cite{1998ApJ...496..605E}.
 The power spectrum is extrapolated at $z=0$ using linear theory and truncated at $k_{\rm max}=1/R_s$.
 This density field is generated over a cubic grid with $N_c^3$ cells over a cube of length $L_s$ on a side.
-From this gaussian density field we compute both $\delta(\textbf{r})$ and $\div \textbf{v}$ over the grid.
+From this Gaussian density field we compute both $\delta(\textbf{r})$ and $\div \textbf{v}$.
 We generate $15$ different Gaussian fields by changing the values for $L_b$, $N_c$ and $R_s$. 
-Table \ref{table:values} summarizes the different values.
+Table \ref{table:values} summarizes the different values for those parameters.
 
-\subsection{Biased Tracers with Gaussian Smoothing}
+\subsection{N-body fields from biased tracers with Gaussian smoothing}
 
 We use the public Friend-of-Friends catalogs at redshift $z=0.1$
 from the Abacus Project simulations to interpolate the haloes' peculiar velocity over a grid with $N_s^3$ cells.
 The simulations were performed on a cube of side length $720$\ \Mpch with
-$1440^3$ particles correspond to a DM particle mass resolution
-of $\sim 1 \times 10^{10}$ \Msun
+$1440^3$ particles, corresponding to a DM particle mass resolution of $\sim 1 \times 10^{10}$ \Msun.
 We start by selecting haloes with maximum circular velocity larger
 than $v_{max}$.
-Then we assign to each cell the value of the average velocity of the haloes in that cell. 
+Then we assign to each cell the value of the average velocity of the haloes in that cell, which is equivalent to a Nearest Grid Point interpolation scheme. 
 If the cell is empty we assign a value of $0$\kms.
-After this interpolation step we smooth the velocity field using a Gaussian filter of physical scale $R_s$ with the same values listed in the previous sub-section.
+After this interpolation step we smooth the velocity field using a Gaussian filter of physical scale $R_s$.
 We generate $15$ different N-body based divergence fields by changing the values for $v_{max}$, $N_c$ and $R_s$. 
-Table \ref{table:values} summarizes the different values.
+Table \ref{table:values} summarizes the different values for those parameters.
 
 
 \section{Watershed Superclusters}
 
-We use a watershed algorithm \citep{BeucherWatershed1979} on the velocity divergence field to find superclusters.
+We find the superclusters using a watershed algorithm \citep{BeucherWatershed1979} on the velocity divergence field.
 The algorithm segments the whole volume by assigning each voxel to a unique supercluster. 
 
 Our implementation works as follows. 
@@ -304,7 +303,7 @@ Finally, each group found by the algorithm is interpreted as a supercluster
 with a volume, $V_s$, calculated by the total volume of the voxels belonging to it.
 From the volume $V_s$ we compute the equivalent radius $R_{\rm eq}$, that is the radius of the sphere with the same volume, 
    $ R_{\rm eq} = \left(\frac{3}{4\pi}V_{s}\right)^{1/3}$.
-We describe the supercluster population in a divergence grid by the average value of the equivalent radius, $\langle R_{\rm eq}\rangle$.
+We describe the supercluster population in a divergence field by the average value of the equivalent radius, $\langle R_{\rm eq}\rangle$.
 
 
 \section{Results}
@@ -338,9 +337,10 @@ The corresponding power spectra and autocorrelation function are presented in th
 \begin{figure*}
     \centering
     \includegraphics[width=330pt]{summary_watershed.pdf}
-    \caption{Average equivalent radius as a function of the coherence length in their parent divergence field.
-    In all cases the relationship between the two quantities is close to linear for auto-correlation lenghts below $100$ \Mpch. However, with the parameterization $\langle R_{\rm{eq}}\rangle=\alpha R_{\delta\delta}$, the best fit gives $\alpha\approx1.25$ for Gaussian fields and $\alpha\approx0.9$ for N-body fields.
-    \label{fig:Nclusters}}
+    \caption{Average equivalent radius as a function of the auto-correlation length in their parent divergence field.
+    The relationship between the two quantities is close to linear for auto-correlation lengths below $100$ \Mpch. With the parameterization $\langle R_{\rm{eq}}\rangle=\alpha R_{\delta\delta}$, the best fit gives $\alpha=1.2\pm0.1$ for Gaussian fields and $\alpha=0.9\pm 0.1$ for N-body fields.
+    \label{fig:Nclusters}.
+    The horizontal stripe shows recent estimates of Laniakea's equivalent radius. If Laniakea is to be considered as an average supercluster, the the auto-correlation length in the divergence fields from the Cosmicflows data should be on the order of 65 to 90 \Mpch.}
 \end{figure*}
 
 
