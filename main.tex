@@ -52,20 +52,11 @@ $^{2}$ Center for Neuroprosthetics and Brain Mind Institute, Swiss
 \maketitle
 \begin{abstract}
 Galaxy superclusters can be defined as regions of converging galaxy
-velocity flows. Such structures have quantifiable properties such as
-mass, volume and shape. The most precise quantification of such an
-object has been done on our local supercluster, Laniakea. In this work
-the properties of Laniakea are compared to the expectations from a
-$\Lambda$CDM Universe. Cosmological N-body simulations are used in
-order to find cosmic flow fields of dark matter halos and find
-superclusters using a watershed algorithm. In addition, the
-distributions of volume of the superclusters found in those
-simulations are quantified and compared with known values for
-Laniakea. The latter process was done for both Planck 2015 cosmologies
-and cosmologies with extreme values of $\Omega_m$ and $\sigma_8$
-parameters. In all those cases Laniakea is found on the right side of
-the distribution, placing it as an atypical object in a cosmological
-context.  
+velocity flows. 
+Here we show how superclusters can be defined as watershed in the peculiar velocity field divergence.
+We explore the reach of this definition on divergence fields computed both from linear theory and direct interpolation from N-body simulations.
+We characterize the divergence field using an auto-correlation length defined from the auto-correlation function.
+With these definitions we find that the average superclusters size linearly follows the autocorrelation lenght. This result holds for one order of magnitude from 10 \Mpch up to 100 \Mpch
 \end{abstract}
 
 \begin{keywords}
@@ -251,6 +242,9 @@ $L_b$ is the box size of the cubic volume used to compute the divergence. $R_{s}
 
 
 
+
+
+
 \section{Divergence Fields on a Grid}
 \label{sec:numerical_setup}
 
@@ -308,6 +302,14 @@ From the volume $V_s$ we compute the equivalent radius $R_{\rm eq}$, that is the
 We describe the supercluster population in a divergence field by the average value of the equivalent radius, $\langle R_{\rm eq}\rangle$.
 
 
+\begin{figure}
+    \centering
+    \includegraphics[width=240pt]{correlation_length.pdf}
+    \caption{Correlation length $R_{\delta\delta}$ as a function of the truncation scale $R_s$.
+    Both for Gaussian and N-body fields the relationship between the two scales is close to linear below $R_{s}=20$ \Mpch.}
+    \label{fig:correlation length}
+\end{figure}
+
 \section{Results}
 
 We start by illustrating the different beheviour between the Gaussian and N-body divergence fields.
@@ -324,34 +326,6 @@ However, the right panel also shows that the auto-correlation length should incr
 Figure \ref{fig:correlation length} shows the relationship between the truncation/smoothing scale $R_s$ and the auto-correlation length $R_{\delta\delta}$.
 We find that below $R_{s} < 20$\Mpch the two scales almost follow a linear proportionality.
 Beyond that scale, the Gaussian fields continue tha linearity up to $R_{\delta\delta}\approx 130$\Mpch, while the N-body fields saturate around $R_{\delta\delta}\approx 100$\Mpch.
-
-Our most important result is summarized in Figure \ref{fig:money_plot}.
-The plot shows that 
-the average super-cluster size linearly follows the the auto-correlation length as defined in Equation \ref{eq:autocorrelation}.
-The linear correlations holds both for Gaussian and N-body fields over one order of magnitude from $10$\Mpch up to $100$\Mpch.
-In other words, the auto-correlation formalism over the velocity divergence fields is able to estimate the typical super-cluster size.
-We parameterize this strong linear dependence  as 
-$\langle R_{\rm{eq}}\rangle=\alpha R_{\delta\delta}$, the best fit gives $\alpha=1.2\pm0.1$ for Gaussian fields and $\alpha=0.9\pm 0.1$ for N-body fields.
-    
-We finalize this Section by showing how the super-cluster size distribution differs in Gaussian fields compared to the N-body fields.
-Figure \ref{fig:Nclusters} shows the probability density function for the equivalent radius distributions from two different divergence fields.
-We pick these two distributions because they have a similar mean value $\approx80$\Mpch. 
-However, the distribution in the N-body field is wider than it is for the Gaussian field, meaning that there are more super-clusters with values well above/below the average in the non-linear divergence field than in the Gaussian field. 
-
-
-What does these results have to say about observations?
-The horizontal stripe in Figure \ref{fig:money_plot} shows recent estimates of Laniakea's equivalent radius. If Laniakea is to be considered as an average supercluster, then our results predict that the auto-correlation length in the divergence fields from the Cosmicflows data should be on the order of 65 to 90 \Mpch.
-Having a measurement of the auto-correlation length on the divergence field from cosmicflows, would allow us to place Laniakea in a cosmological context and quantify to what extent it is a typical supercluster in a cosmological context.
- 
-
-\begin{figure}
-    \centering
-    \includegraphics[width=240pt]{correlation_length.pdf}
-    \caption{Correlation length $R_{\delta\delta}$ as a function of the truncation scale $R_s$.
-    Both for Gaussian and N-body fields the relationship between the two scales is close to linear below $R_{s}=20$ \Mpch.}
-    \label{fig:correlation length}
-\end{figure}
-
 
 
 \begin{figure}
@@ -373,21 +347,43 @@ Having a measurement of the auto-correlation length on the divergence field from
 \end{figure}
 
 
+Our most important result is summarized in Figure \ref{fig:money_plot}.
+The plot shows that 
+the average super-cluster size linearly follows the the auto-correlation length as defined in Equation \ref{eq:autocorrelation}.
+The linear correlations holds both for Gaussian and N-body fields over one order of magnitude from $10$\Mpch up to $100$\Mpch.
+In other words, the auto-correlation formalism over the velocity divergence fields is able to estimate the typical super-cluster size.
+We parameterize this strong linear dependence  as 
+$\langle R_{\rm{eq}}\rangle=\alpha R_{\delta\delta}$, the best fit gives $\alpha=1.2\pm0.1$ for Gaussian fields and $\alpha=0.9\pm 0.1$ for N-body fields.
+    
+We finalize this Section by showing how the super-cluster size distribution differs in Gaussian fields compared to the N-body fields.
+Figure \ref{fig:Nclusters} shows the probability density function for the equivalent radius distributions from two different divergence fields.
+We pick these two distributions because they have a similar mean value $\approx80$\Mpch. 
+However, the distribution in the N-body field is wider than it is for the Gaussian field, meaning that there are more super-clusters with values well above/below the average in the non-linear divergence field than in the Gaussian field. 
+
+
+What does these results have to say about observations?
+The horizontal stripe in Figure \ref{fig:money_plot} shows recent estimates of Laniakea's equivalent radius. If Laniakea is to be considered as an average supercluster, then our results predict that the auto-correlation length in the divergence fields from the Cosmicflows data should be on the order of 65 to 90 \Mpch.
+Having a measurement of the auto-correlation length on the divergence field from cosmicflows, would allow us to place Laniakea in a cosmological context and quantify to what extent it is a typical supercluster in a cosmological context.
+ 
+
+
 
 \section{Conclusion}
 
-Super-clusters in velocity fields are usually defined as regions of converging peculiar velocity flows.
-The spatial scale over which the velocity field is coherent thus defines the properties of these converging flow basins.
-Larger coherence length translates into larger super-clusters.
 
-In this Letter we presented one possible way to unify and quantify this picture.
-Starting from the divergence of the velocity field, we compute its auto-correlation function to give a precise definition of the coherence scale as an auto-correlation length. 
-On the other hand watershed partitioning over the velocity divergence field produces the super-clusters, from which we can compute an average size.
 
-We tested this picture using very different divergence fields (Gaussian and non-linear from N-body simulations) to find that the typical super-clusters size linearly follows the auto-correlation length.
+In this Letter we presented the peculiar velocity field divergence as the central element to define and understand superclusters.
+We compute its auto-correlation function to give a precise definition of the coherence scale as an auto-correlation length. 
+Simultaneously, to define the superclusters we perform a watershed partition over the same velocity divergence field. 
+
+Using this framework we show how larger coherence lengths correlates with larger super-clusters.
+We tested this picture using very different velocity divergence fields (Gaussian fields and fields from N-body simulations) to find that the typical supercluster size linearly follows the auto-correlation length.
 This results holds for one order of magnitude from $10$\Mpch up to $100$\Mpch.
 
-Future tasks that can be performed using the framework presented here include: characterizing the super-clusters shapes, find explicit dependence of super-cluster properties on the cosmological parameters and finding relationships between the divergence based superclusters and segmentation based on graphs defined on the galaxy spatial distribution.
+The concepts we have presented here are straightforward to apply both to observational data and simulations.
+The applications are manifold.
+Using this framework one estimate the dependence of supercluster properties on cosmological parameters and its redshift evolution.
+One could also divergence based superclusters to find their relationship with segmentation based on graphs built on top of the galaxy spatial distribution.
 
 
 \bibliographystyle{mnras}
