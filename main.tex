@@ -51,13 +51,12 @@ $^{2}$ Center for Neuroprosthetics and Brain Mind Institute, Swiss
 %%%%%====MYMARK========
 \maketitle
 \begin{abstract}
-Galaxy superclusters are useful way to partition the Universe in a way that can be probed both by observations and simulations.
-In this Letter explore the robustness of defining  superclusters as watershed basins in the divergence velocity field.
-To characterize this field with a global scalar we also define an auto-correlation length from the autocorrelation function.
-We use divergence fields computed both from linear theory and direct interpolation from N-body simulations to apply these definitions and find that the average supercluster size linearly follows the autocorrelation length. 
-This result holds for one order of magnitude from 10 \Mpch up to 100 \Mpch.
-We estimate that, if the Laniakea supercluster is to be considered to have an average size then the auto-correlation length in the divergence fields from the Cosmicflows dta data should be on the order of 65 \Mpch to 90  \Mpch.
-This supercluster definition naturally allows the study of supercluster abundance properties as a function of cosmological parameters and redshift.
+Superclusters are emerging as a new way to spatially partition the Universe, both in observations and simulations.
+Different definitions and algorithms have been presented in the literature with the expectation to build an stable framework to use superclusters in a quantitative fashion.
+In this Letter we show the strengths of defining superclusters as watershed basins in the divergence velocity field.
+We apply this definition on data generated from linear theory and data from N-body simulations and experiment with different grid sizes, smoothing scales and types of tracers.
+Under this perspective we find that the average supercluster size linearly follows the autocorrelation length in the divergence field, a result that holds for one order of magnitude from 10 \Mpch up to 100 \Mpch.
+Our results suggest that the divergence-based definition provides a robust context to quantitatively compare results across different observational or computational frameworks. Its flexibility can also facilitate a better understanding of how supercluster properties depend on cosmological parameters and explore the possibility of using superclusters as comological probes.
 \end{abstract}
 
 \begin{keywords}
@@ -81,45 +80,43 @@ define the Laniakea supercluster of galaxies
 \citep{2014Natur.513...71T}.  
 Their main input was the Cosmicflows-2 catalog of distances and radial
 velocities that provide them with coverage of distances up to 400 Mpc
-[CITA A COSMICFLOWS-2]. 
-By applying a Wiener filter \citep{Zaroubi_1999} they obtained the
+\citep{2013AJ....146...86T}. 
+By applying a Wiener reconstruction  \citep{Zaroubi_1999} they obtained the
 reconstruction of the 3-dimensional velocity field. 
 From this reconstructions they manually defined our local galaxy supercluster, Laniakea as the region of inflowing peculiar velocities that include the Milky Way. 
 
+Since then, different supercluster definitions have been used to define superclusters. 
+\cite{2015A&A...575L..14C} defined superclusters from an overdensity criterion that is define to select regions that will collapse in the future.
+Under that criterion Laniakea is not considered a supercluster given that its average density is slightly below the cosmic mean.
+\cite{Bagchi_2017} used a computational definition based on the Friends-of-Friends algorithm to define Saraswati, a large supercluster with a wall-like structure extending over $200$ Mpc, from galaxy survey data.
+\cite{Einasto_2019} used percolation analysis on N-body simulations to find superclusters.
+They interpolate the dark matter density field on a grid, smooth it with a gaussian fielters and then define different density cuts above which superclusters are defined and characterized. 
 
-Different perspectives have been used to define superclusters. 
-Other examples of this
-approach can be found in \cite{Santiago_Bautista_2020},
-\cite{van_de_Weygaert_2014} and \cite{Lares_2017}. Finally, a
-computational approach is presented in
-\cite{10.1111/j.1365-2966.2009.14885.x} where a dynamical
-classification of the cosmic web is applied to cosmological N-body simulations.  
-
-From a general computational point of view the definition of Laniakea poses
-an interesting problem, namely defining regions of converging velocity
-flows.
-This conceptual statement was been recently exploited by \cite{Dupuy_2019} 
-to use streamlines found in peculiar velocity data and find
+More recently \cite{Dupuy_2019} used streamlines found in peculiar velocity data to define 
 superclusters. 
-They make use of the concept of basins of attraction/repulsion, defined as
-regions where velocity flows are observed to be inflowing/outflowing
-as consequence of gravitational forces. 
-In practice, they track streamlines in space to define gravitational
-basins of attraction/repulsion.   
+They track streamlines in space to define gravitational basins of attraction/repulsion.
 This algorithm allowed an automatic partition to define Laniakea's boundary without manual intervention.
-
-\cite{Dupuy_2020} studied in detail the influence of the details in
-the algorithm parameters in the detected gravitational basins. 
-The computation of the streamlines involves the application of a
+The algorithm involves the application of a
 fourth order Runge-Kutta method. 
-In this way, obtaining structures using this method is influenced by
-the choice of the integration parameters. 
-The properties of the basins of attraction also depend on two more free parameters: the streamline length and the number of streamlines ending on a vortex required to define a gravitational basing.
+In this way, obtaining structures using this method is influenced by the choice of the integration parameters. 
+Two more free parameters are involved in this computation: the streamline length and the number of streamlines ending on a vortex required to define a gravitational basing.
+
+\cite{Dupuy_2020} studied the influence of the details in
+the algorithm parameters on the detected gravitational basins.
 Additionally, the
 influence of a smoothing parameter was a focus of their interest. 
 They reported strong changes in the supercluster abundance as a function of the smoothing scale, but a detailed understanding of these trends was left for future work.
 
-In this Letter we suggest an alternative path to have a robust identification of superclusters from velocity data with the lowest possible number of free parameters for the supercluster finding algorithm, while keeping a clear quantitative understanding of how the supercluster properties depend on the smoothing scale used build the velocity field.
+In this Letter we present a supercluster definition
+based on the velocity divergence.
+The supercluster finding algorithm is based on the watershed concept that could be used both on data from observations and simulations.
+The divergence not only help us to keep a quantitative understanding of how the supercluster properties depend on the smoothing scale used build the velocity field, but also provides a handle to tie the superclusters to the underlying cosmology.
+
+This Letter is structured as follows.
+In Section \ref{sec:divergence} we present the way we characterize the velocity divergence fields.
+Next, in Section \ref{sec:watershed}, we describe the supercluster finding algorithm.
+In Section \ref{sec:fields} we describe how we generate divergence fields on a grid to test our definitions and supercluster finding algorithm.
+In Section \ref{sec:results} we present our main results to finally conclude in Section \ref{sec:conclusion} with the perspectives for applications of our approach.
 
 
 
@@ -129,7 +126,7 @@ In this Letter we suggest an alternative path to have a robust identification of
 
 
 \section{Auto-correlation length in the divergence field}
-
+\label{sec:divergence}
 We use the velocity divergence field, $\div \textbf{v}$, as the main quantity to study over cosmological scales.
 From it we define a dimensionless divergence field, $\delta(\textbf{r})$, as follows:
 
@@ -197,11 +194,33 @@ $L_b$ is the box size of the cubic volume used to compute the divergence. $R_{s}
 
 
 
+\section{Watershed Superclusters}
+\label{sec:watershed}
+
+We find the superclusters using a watershed algorithm \citep{BeucherWatershed1979} on the dimensionless divergence fields.
+The algorithm segments the whole volume by assigning each voxel to a unique supercluster. 
+
+Our implementation works as follows. 
+We sweep the cells in the dimensionless divergence grid from the highest values to the lowest, i.e. from the high density regions with converging flows to the lowest density regions with divergent flows.
+For the $i$-th cell under consideration we check whether its 26 neighbors have already been assigned to a group. 
+If all the neighbors are unassigned, then this $i$-th cell starts a new group; if the majority of already assigned cells belongs to the $n$-th group, then this cell belongs to that group.
+In case of a draw between groups, the cell is assigned to the supercluster with the lowest $n$ value.
+At the end of the sweep all cells have been assigned to a group. 
+In all our calculations we take periodical boundary conditions into account.  
+
+We highlight that, once the divergence field is provided, this algorithm
+does not have free parameters based either on divergence, density or distance thresholds. 
+Finally, each group found by the algorithm is interpreted as a supercluster 
+with a volume, $V_s$, calculated by the total volume of the voxels belonging to it.
+From the volume $V_s$ we compute the equivalent radius $R_{\rm eq}$, that is the radius of the sphere with the same volume, 
+   $ R_{\rm eq} = \left(\frac{3}{4\pi}V_{s}\right)^{1/3}$.
+We describe the supercluster population in a divergence field by the average value of the equivalent radius, $\langle R_{\rm eq}\rangle$.
+
 
 
 
 \section{Divergence Fields on a Grid}
-\label{sec:numerical_setup}
+\label{sec:fields}
 
 We use dimensionless divergence fields computed on a cubic grid. 
 We generate them in two different ways.
@@ -235,27 +254,6 @@ We generate $15$ different N-body based divergence fields by changing the values
 Table \ref{table:values} summarizes the different values for those parameters.
 
 
-\section{Watershed Superclusters}
-
-We find the superclusters using a watershed algorithm \citep{BeucherWatershed1979} on the dimensionless divergence fields.
-The algorithm segments the whole volume by assigning each voxel to a unique supercluster. 
-
-Our implementation works as follows. 
-We sweep the cells in the dimensionless divergence grid from the highest values to the lowest, i.e. from the high density regions with converging flows to the lowest density regions with divergent flows.
-For the $i$-th cell under consideration we check whether its 26 neighbors have already been assigned to a group. 
-If all the neighbors are unassigned, then this $i$-th cell starts a new group; if the majority of already assigned cells belongs to the $n$-th group, then this cell belongs to that group.
-In case of a draw between groups, the cell is assigned to the supercluster with the lowest $n$ value.
-At the end of the sweep all cells have been assigned to a group. 
-In all our calculations we take periodical boundary conditions into account.  
-
-We highlight that, once the divergence field is provided, this algorithm
-does not have free parameters based either on divergence, density or distance thresholds. 
-Finally, each group found by the algorithm is interpreted as a supercluster 
-with a volume, $V_s$, calculated by the total volume of the voxels belonging to it.
-From the volume $V_s$ we compute the equivalent radius $R_{\rm eq}$, that is the radius of the sphere with the same volume, 
-   $ R_{\rm eq} = \left(\frac{3}{4\pi}V_{s}\right)^{1/3}$.
-We describe the supercluster population in a divergence field by the average value of the equivalent radius, $\langle R_{\rm eq}\rangle$.
-
 
 \begin{figure}
     \centering
@@ -266,6 +264,7 @@ We describe the supercluster population in a divergence field by the average val
 \end{figure}
 
 \section{Results}
+\label{sec:results}
 
 We start by illustrating the different beheviour between the Gaussian and N-body divergence fields.
 Figure \ref{fig:gaussian} shows the power spectrum and the auto-correlation function for five different Gaussian fields generated over a box with side $L_b=1000$ \Mpch and $100^3$ voxels.
@@ -323,8 +322,8 @@ Having a measurement of the auto-correlation length on the divergence field from
 
 
 
-\section{Conclusion}
-
+\section{Conclusions}
+\label{sec:conclusion}
 
 
 In this Letter we presented the peculiar velocity field divergence as the central element to define and understand superclusters.
