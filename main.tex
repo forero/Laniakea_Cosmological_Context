@@ -308,6 +308,9 @@ The linear correlations holds both for Gaussian and N-body fields over one order
 In other words, the auto-correlation formalism over the velocity divergence fields is able to estimate the typical super-cluster size.
 We parameterize this strong linear dependence  as 
 $\langle R_{\rm{eq}}\rangle=\alpha R_{\delta\delta}$, the best fit gives $\alpha=1.2\pm0.1$ for Gaussian fields and $\alpha=0.9\pm 0.1$ for N-body fields.
+This linear scaling relation clearly depends on the definition used in Equation \ref{eq:autocorrelation}. 
+Using values smaller than $1/10$ in that definition have the consequence of breaking the linear scaling above $R_{\delta\delta}\approx 40$\Mpch for N-body fields. 
+Furthermore, the regions where the linear scaling still holds, show values of $\alpha$ smaller than unity. 
     
 We finalize this Section by showing how the super-cluster size distribution differs in Gaussian fields compared to the N-body fields.
 Figure \ref{fig:Nclusters} shows the probability density function for the equivalent radius distributions from two different divergence fields.
@@ -338,11 +341,13 @@ We found that the distributions are narrower and more symmetric in the Gaussian 
 
 
 The concepts we have presented here are straightforward to apply both to observational data and simulations.
-For instance the divergence has already been used in CosmicFlows-2 reconstruction data to define cosmic web elements \cite. 
+For instance the velocity divergence field has already been used in CosmicFlows-2 reconstruction data to define cosmic web elements \citep{2015MNRAS.452.1052L}. 
 
-The applications are manifold.
-Using this framework one estimate the dependence of supercluster properties on cosmological parameters and its redshift evolution.
-One could also use divergence based superclusters to find their relationship with segmentation based on graphs built on top of the galaxy spatial distribution.
+Future work on superclusters using this framework includes studying scaling relations between sizes, 3D shapes, maximum divergence depth and its dark matter or galaxy populations.
+Another line for future work is the cosmological exploration using superclusters.
+Using this framework one could estimate (via linear theory) the dependence of supercluster properties on cosmological parameters and its redshift evolution.
+
+Finally, the link between divergence based superclusters and graph properties \citep{2020MNRAS.tmpL.153G} computed on top of the galaxy spatial distribution provides not only a potential way to define superclusters where velocity information is not available, but also a possible approach to quantify the relationship between large scale structure topology and dynamics.
 
 
 \bibliographystyle{mnras}
