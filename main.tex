@@ -51,12 +51,12 @@ $^{2}$ Center for Neuroprosthetics and Brain Mind Institute, Swiss
 %%%%%====MYMARK========
 \maketitle
 \begin{abstract}
-Superclusters are emerging as a new way to spatially partition the Universe, both in observations and simulations.
-Different definitions and algorithms have been presented in the literature with the expectation to build an stable framework to use superclusters in a quantitative fashion.
-In this Letter we show the strengths of defining superclusters as watershed basins in the divergence velocity field.
-We apply this definition on data generated from linear theory and data from N-body simulations and experiment with different grid sizes, smoothing scales and types of tracers.
-Under this perspective we find that the average supercluster size linearly follows the autocorrelation length in the divergence field, a result that holds for one order of magnitude from 10 \Mpch up to 100 \Mpch.
-Our results suggest that the divergence-based definition provides a robust context to quantitatively compare results across different observational or computational frameworks. Its flexibility can also facilitate a better understanding of how supercluster properties depend on cosmological parameters and explore the possibility of using superclusters as comological probes.
+Superclusters are emerging as a coherent component to spatially partition the Universe, both in observations and simulations.
+Diverse definitions and algorithms have been presented in the literature with the expectation to build a compelling framework to define superclusters.
+In this Letter we present the strengths of defining superclusters as watershed basins in the divergence velocity field.
+We apply this definition on diverse datasets generated from linear theory and  N-body simulations, with different grid sizes, smoothing scales and types of tracers.
+From this framework emerges a linear scaling relation between the average supercluster size and the autocorrelation length in the divergence field, a result that holds for one order of magnitude from 10 \Mpch up to 100 \Mpch.
+Our results suggest that the divergence-based definition provides a robust context to quantitatively compare results across different observational or computational frameworks. It can also facilitate the exploration of how supercluster properties depend on cosmological parameters to analyze the possibility of using superclusters as cosmological probes.
 \end{abstract}
 
 \begin{keywords}
@@ -90,7 +90,7 @@ Since then, different supercluster definitions have been used to define superclu
 Under that criterion Laniakea is not considered a supercluster given that its average density is slightly below the cosmic mean.
 \cite{Bagchi_2017} used a computational definition based on the Friends-of-Friends algorithm to define Saraswati, a large supercluster with a wall-like structure extending over $200$ Mpc, from galaxy survey data.
 \cite{Einasto_2019} used percolation analysis on N-body simulations to find superclusters.
-They interpolate the dark matter density field on a grid, smooth it with a gaussian fielters and then define different density cuts above which superclusters are defined and characterized. 
+They interpolate the dark matter density field on a grid, smooth it with a gaussian filter and then define different density cuts above which superclusters are defined and characterized. 
 
 More recently \cite{Dupuy_2019} used streamlines found in peculiar velocity data to define 
 superclusters. 
@@ -110,7 +110,7 @@ They reported strong changes in the supercluster abundance as a function of the 
 In this Letter we present a supercluster definition
 based on the velocity divergence.
 The supercluster finding algorithm is based on the watershed concept that could be used both on data from observations and simulations.
-The divergence not only help us to keep a quantitative understanding of how the supercluster properties depend on the smoothing scale used build the velocity field, but also provides a handle to tie the superclusters to the underlying cosmology.
+The divergence not only helps us to keep a quantitative understanding of how the supercluster properties depend on the smoothing scale, used to build the velocity field, but also provides a handle to tie the superclusters to the underlying cosmology.
 
 This Letter is structured as follows.
 In Section \ref{sec:divergence} we present the way we characterize the velocity divergence fields.
@@ -143,14 +143,14 @@ From this power spectrum we calculate the auto-correlation function as
     \xi_{\delta\delta} (r) = \frac{1}{2\pi^2}\int_{0}^{\infty} k^2 P_{\delta}(k)\frac{\sin kr}{kr} dk.
 \end{equation}
 
-From the auto-correlation function we define a coherence length, $R_{\delta\delta}$ as the value of $r$ at which $\xi_{\delta\delta}(r)$ drops by a factor of then from the value it has for $r\rightarrow0$. 
+From the auto-correlation function we define a coherence length, $R_{\delta\delta}$, as the value of $r$ at which $\xi_{\delta\delta}(r)$ drops by a factor of ten from the value it has for $r\rightarrow0$. 
 Computationally speaking, we compute the auto-correlation function in the interval $1\Mpch \leq r \leq 100 \Mpch$ and $R_{\delta\delta}$ is defined by the value at which
 \begin{equation}
 \xi_{\delta\delta}(R_{\delta\delta})  =\frac{1}{10} \xi_{\delta\delta}(1 \Mpch).    
 \label{eq:autocorrelation}
 \end{equation}
 
-We show in the following sections how using this definition we obtain a linear relationship between the auto-correlation length, $R_{\delta\delta}$, and the average super-cluster size.
+We show in the following sections how by using this definition we obtain a linear relationship between the auto-correlation length, $R_{\delta\delta}$, and the average super-cluster size.
 
 
 \begin{table*}
@@ -266,7 +266,7 @@ Table \ref{table:values} summarizes the different values for those parameters.
 \section{Results}
 \label{sec:results}
 
-We start by illustrating the different beheviour between the Gaussian and N-body divergence fields.
+We start by illustrating the different behaviour between the Gaussian and N-body divergence fields.
 Figure \ref{fig:gaussian} shows the power spectrum and the auto-correlation function for five different Gaussian fields generated over a box with side $L_b=1000$ \Mpch and $100^3$ voxels.
 The five different curves correspond to different wavelength cuts in the power spectrum  $1/R_s$, with $R_s$ in the range from 10 to 40 \Mpch.
 From the right panel in the Figure it is evident that the auto-correlation length increases with larger $R_{s}$ values.
@@ -279,7 +279,7 @@ However, the right panel also shows that the auto-correlation length should incr
 
 Figure \ref{fig:correlation length} shows the relationship between the truncation/smoothing scale $R_s$ and the auto-correlation length $R_{\delta\delta}$.
 We find that below $R_{s} < 20$\Mpch the two scales almost follow a linear proportionality.
-Beyond that scale, the Gaussian fields continue tha linearity up to $R_{\delta\delta}\approx 130$\Mpch, while the N-body fields saturate around $R_{\delta\delta}\approx 100$\Mpch.
+Beyond that scale, the Gaussian fields continue that linearity up to $R_{\delta\delta}\approx 130$\Mpch, while the N-body fields saturate around $R_{\delta\delta}\approx 100$\Mpch.
 
 
 \begin{figure}
@@ -326,18 +326,23 @@ Having a measurement of the auto-correlation length on the divergence field from
 \label{sec:conclusion}
 
 
-In this Letter we presented the peculiar velocity field divergence as the central element to define and understand superclusters.
-We compute its auto-correlation function to give a precise definition of the coherence scale as an auto-correlation length. 
-Simultaneously, to define the superclusters we perform a watershed partition over the same velocity divergence field. 
+In this Letter we presented the peculiar velocity divergence field as the central element to define and understand superclusters.
+We computed its autocorrelation function to give a precise definition of the coherence scale as an autocorrelation length. 
+Simultaneously, to define the superclusters we performed a watershed partition over the same velocity divergence field. 
+We tested this picture using different velocity divergence fields (Gaussian fields and fields from N-body simulations) computed over different grid sizes, smoothing scales and types of dark matter halos as tracers.
 
-Using this framework we show how larger coherence lengths correlates with larger super-clusters.
-We tested this picture using very different velocity divergence fields (Gaussian fields and fields from N-body simulations) to find that the typical supercluster size linearly follows the auto-correlation length.
-This results holds for one order of magnitude from $10$\Mpch up to $100$\Mpch.
+We found a linear scaling relation between the average supercluster size and the autocorrelation length. 
+This result holds for one order of magnitude from $10$\Mpch up to $100$\Mpch.
+We also compared the supercluster size distribution in the Gaussian and N-body divergence fields. The two  field types had in common that their average supercluster size was close to the value reported for Laniakea.
+We found that the distributions are narrower and more symmetric in the Gaussian field.
+
 
 The concepts we have presented here are straightforward to apply both to observational data and simulations.
+For instance the divergence has already been used in CosmicFlows-2 reconstruction data to define cosmic web elements \cite. 
+
 The applications are manifold.
 Using this framework one estimate the dependence of supercluster properties on cosmological parameters and its redshift evolution.
-One could also divergence based superclusters to find their relationship with segmentation based on graphs built on top of the galaxy spatial distribution.
+One could also use divergence based superclusters to find their relationship with segmentation based on graphs built on top of the galaxy spatial distribution.
 
 
 \bibliographystyle{mnras}
