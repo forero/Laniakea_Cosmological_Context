@@ -101,7 +101,7 @@ This algorithm allowed an automatic partition to define Laniakea's boundary with
 The algorithm involved the application of a
 fourth order Runge-Kutta method. 
 In this way, obtaining structures using this method is influenced by the choice of the integration parameters. 
-Two more free parameters are involved in this computation: the streamline length and the number of streamlines ending on a vortex required to define a gravitational basing.
+Two more free parameters are involved in this computation: the streamline length and the number of streamlines ending on a vortex required to define a gravitational basin.
 
 \cite{Dupuy_2020} studied the influence of the details in
 the algorithm parameters on the detected gravitational basins.
@@ -112,7 +112,7 @@ However, a more detailed inspection of these trends, together with a study of ho
 In this Letter we present another framework to define, study and understand superclusters. 
 The supercluster definition is based on the velocity divergence field, while
 the supercluster finding algorithm is based on the watershed concept that could be used both on data from observations and simulations.
-We show in this Letter how this definition helps us to keep a quantitative understanding of how the supercluster properties depend on the smoothing scale while also providing a handle to tie the superclusters to the underlying cosmology.
+We show in this Letter how this definition helps us to reach a quantitative understanding of how the supercluster properties depend on the smoothing scale while also providing a handle to tie superclusters properties to the underlying cosmology.
 
 This Letter is structured as follows.
 In Section \ref{sec:divergence} we present the way we characterize the velocity divergence fields.
@@ -233,7 +233,7 @@ We use a total of $30$ different divergence fields, summarized in Table \ref{tab
 We start by generating a density field with a power spectrum that follows no-wiggle parameterization of \cite{1998ApJ...496..605E}.
 The power spectrum is extrapolated at $z=0$ using linear theory and truncated at $k_{\rm max}=1/R_s$.
 This density field is generated over a cubic grid with $N_c^3$ voxels over a cube of length $L_s$ on a side.
-From this Gaussian density field we compute both $\delta(\textbf{r})$ and $\div \textbf{v}$.
+From this Gaussian density field we compute both the overdensity and directly use it as $\delta(\textbf{r})$.
 We generate $15$ different Gaussian fields by changing the values for $L_b$, $N_c$ and $R_s$. 
 Table \ref{table:values} summarizes the different values for those parameters.
 
@@ -255,7 +255,7 @@ Table \ref{table:values} summarizes the different values for those parameters.
 
 \begin{figure}
     \centering
-    \includegraphics[width=240pt]{correlation_length.pdf}
+    \includegraphics[width=220pt]{correlation_length.pdf}
     \caption{Correlation length $R_{\delta\delta}$ as a function of the truncation scale $R_s$.
     Both for Gaussian and N-body fields the relationship between the two scales is close to linear below $R_{s}=20$ \Mpch.}
     \label{fig:correlation length}
@@ -282,7 +282,7 @@ Beyond that scale, the Gaussian fields continue that linearity up to $R_{\delta\
 
 \begin{figure}
     \centering
-    \includegraphics[width=240pt]{summary_watershed.pdf}
+    \includegraphics[width=220pt]{summary_watershed.pdf}
     \caption{Average equivalent radius as a function of the autocorrelation length in their parent divergence field.
     The relationship between the two quantities is close to linear for autocorrelation lengths below $100$ \Mpch. \label{fig:money_plot}}
 \end{figure}
@@ -291,7 +291,7 @@ Beyond that scale, the Gaussian fields continue that linearity up to $R_{\delta\
  
 \begin{figure}
     \centering
-    \includegraphics[width=240pt]{sizes_histogram.pdf}
+    \includegraphics[width=220pt]{sizes_histogram.pdf}
     \caption{Equivalent radius distributions from dimensionless divergence fields derived from a Gaussian random field and a N-body simulation.
     In both cases the average value for the equivalent radius is close to $80$\Mpch. 
     The distributions shapes are different; the Gaussian field produces a narrower, closer to Gaussian, distribution than the N-body field. }  
@@ -331,7 +331,7 @@ Having a measurement of the autocorrelation length on the divergence field from 
 \label{sec:conclusion}
 
 
-In this Letter we presented the peculiar velocity divergence field as the central element to define and understand superclusters.
+In this Letter we presented the peculiar velocity divergence field as a central element to define and understand superclusters.
 We computed its autocorrelation function to give a precise definition of the coherence scale as an autocorrelation length. 
 Simultaneously, to define the superclusters we performed a watershed partition over the same velocity divergence field. 
 We tested this picture using different velocity divergence fields (Gaussian fields and fields from N-body simulations) computed over different grid sizes, smoothing scales and types of dark matter halos as tracers.
