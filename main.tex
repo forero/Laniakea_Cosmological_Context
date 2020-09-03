@@ -266,12 +266,12 @@ Table \ref{table:values} summarizes the different values for those parameters.
 \section{Results}
 \label{sec:results}
 
-We start by illustrating the different behaviour between the Gaussian and N-body divergence fields.
-Figure \ref{fig:gaussian} shows the power spectrum and the auto-correlation function for five different Gaussian fields generated over a box with side $L_b=1000$ \Mpch and $100^3$ voxels.
+We start by illustrating the differences between the Gaussian and N-body divergence fields.
+Figure \ref{fig:gaussian} shows the power spectrum and the autocorrelation function for five different Gaussian fields generated over a box with side $L_b=1000$ \Mpch and $100^3$ voxels.
 The five different curves correspond to different wavelength cuts in the power spectrum  $1/R_s$, with $R_s$ in the range from 10 to 40 \Mpch.
-From the right panel in the Figure it is evident that the auto-correlation length increases with larger $R_{s}$ values.
+The right panel in the Figure \ref{fig:gaussian} shows that the autocorrelation length increases with larger $R_{s}$ values.
 
-Figure \ref{fig:nbody} shows the power spectrum and auto-correlation function for N-body fields generated 
+Figure \ref{fig:nbody} shows the power spectrum and autocorrelation function for N-body fields generated 
 from dark matter haloes with a maximum circular velocity larger than $300$ \kms, with their peculiar velocities interpolated over on a cubic mesh of side $L_b=720$ \hMpc and  $360^3$ voxels.
 Each curve correspond to a different scale $R_s$ for the Gaussian smoothing filter.
 In this case, the overall normalization of the power spectra is smaller compared to the normalization in the Gaussian fields, as it is expected from the nature of the biased tracers.
@@ -308,9 +308,13 @@ The linear correlations holds both for Gaussian and N-body fields over one order
 In other words, the auto-correlation formalism over the velocity divergence fields is able to estimate the typical super-cluster size.
 We parameterize this strong linear dependence  as 
 $\langle R_{\rm{eq}}\rangle=\alpha R_{\delta\delta}$, the best fit gives $\alpha=1.2\pm0.1$ for Gaussian fields and $\alpha=0.9\pm 0.1$ for N-body fields.
-This linear scaling relation clearly depends on the definition used in Equation \ref{eq:autocorrelation}. 
-Using values smaller than $1/10$ in that definition have the consequence of breaking the linear scaling above $R_{\delta\delta}\approx 40$\Mpch for N-body fields. 
+
+This linear scaling relation with $\alpha\approx 1$ clearly depends on the definition used in Equation \ref{eq:autocorrelation}. 
+Using values larger than $1/10$ in that definition breaks the linear scaling above $R_{\delta\delta}\approx 40$\Mpch for N-body fields. 
 Furthermore, the regions where the linear scaling still holds, show values of $\alpha$ smaller than unity. 
+Using values smaller than $1/10$ has two consequences.
+First, it probes the region where the autocorrelation might oscillate, making ambiguous the autocorrelation length definition.
+Second, also breaks the linearity of the scaling relation.
     
 We finalize this Section by showing how the super-cluster size distribution differs in Gaussian fields compared to the N-body fields.
 Figure \ref{fig:Nclusters} shows the probability density function for the equivalent radius distributions from two different divergence fields.
