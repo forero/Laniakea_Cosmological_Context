@@ -51,12 +51,14 @@ $^{2}$ Center for Neuroprosthetics and Brain Mind Institute, Swiss
 %%%%%====MYMARK========
 \maketitle
 \begin{abstract}
-Superclusters are emerging as spatially coherent components to partition the Universe, both in observations and simulations.
-Diverse definitions and algorithms have been presented in the literature with the expectation to build a compelling framework to define superclusters.
-In this Letter we present the strengths of defining superclusters as watershed basins in the divergence velocity field.
+Superclusters are a convenient way to partition and characterize the large scale structure of the Universe.
+To study them, different algorithms and definitions have been presented in the literature.
+In this Letter we explore the strengths of defining superclusters as watershed basins in the divergence velocity field.
 We apply this definition on diverse datasets generated from linear theory and  N-body simulations, with different grid sizes, smoothing scales and types of tracers.
 From this framework emerges a linear scaling relation between the average supercluster size and the autocorrelation length in the divergence field, a result that holds for one order of magnitude from 10 \Mpch up to 100 \Mpch.
-Our results suggest that the divergence-based definition provides a robust context to quantitatively compare results across different observational or computational frameworks. It can also facilitate the exploration of how supercluster properties depend on cosmological parameters to quantify the possibility of using superclusters as cosmological probes.
+Our results suggest that the divergence-based definition provides a robust context to quantitatively compare results across different observational or computational frameworks. 
+Via its connection with linear theory, it can also facilitate the exploration of how supercluster properties depend on cosmological parameters, 
+paving the way to use superclusters as cosmological probes.
 \end{abstract}
 
 \begin{keywords}
@@ -111,7 +113,7 @@ However, a more detailed inspection of these trends, together with a study of ho
 
 In this Letter we present another framework to define, study and understand superclusters. 
 The supercluster definition is based on the velocity divergence field, while
-the supercluster finding algorithm is based on the watershed concept that could be used both on data from observations and simulations.
+the supercluster finding algorithm is based on the watershed concept.
 We show in this Letter how this definition helps us to reach a quantitative understanding of how the supercluster properties depend on the smoothing scale while also providing a handle to tie superclusters properties to the underlying cosmology.
 
 This Letter is structured as follows.
@@ -132,7 +134,7 @@ From it we define a dimensionless divergence field, $\delta(\textbf{r})$, as fol
     \label{eq:div}
 \end{equation}
 where $H_0$ is the Hubble parameter and $f$ is the growth rate of structure.
-This is a purely computational definition motivated by the linear theory of structure formation where the equality between the two sides of Equation (\ref{eq:div}) is expected to actually hold.
+This is a purely computational definition motivated by the linear theory of structure formation where the equality between the two sides of Equation (\ref{eq:div}) is expected to actually hold when $\delta(\textbf{r})$ represents the matter overdensity.
 
 We compute the power spectrum of this scalar field and denote it as $P_{\delta}(k)$. 
 From this power spectrum we calculate the autocorrelation function as
@@ -233,7 +235,7 @@ We use a total of $30$ different divergence fields, summarized in Table \ref{tab
 We start by generating a density field with a power spectrum that follows no-wiggle parameterization of \cite{1998ApJ...496..605E}.
 The power spectrum is extrapolated at $z=0$ using linear theory and truncated at $k_{\rm max}=1/R_s$.
 This density field is generated over a cubic grid with $N_c^3$ voxels over a cube of length $L_s$ on a side.
-From this Gaussian density field we compute both the overdensity and directly use it as $\delta(\textbf{r})$.
+From this Gaussian density field we compute  the overdensity and directly use it as the dimensionless divergence field.
 We generate $15$ different Gaussian fields by changing the values for $L_b$, $N_c$ and $R_s$. 
 Table \ref{table:values} summarizes the different values for those parameters.
 
