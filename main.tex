@@ -57,7 +57,7 @@ In this Letter we explore the strengths of defining superclusters as watershed b
 We apply this definition on diverse datasets generated from linear theory and  N-body simulations, with different grid sizes, smoothing scales and types of tracers.
 From this framework emerges a linear scaling relation between the average supercluster size and the autocorrelation length in the divergence field, a result that holds for one order of magnitude from 10 \Mpch up to 100 \Mpch.
 Our results suggest that the divergence-based definition provides a robust context to quantitatively compare results across different observational or computational frameworks. 
-Via its connection with linear theory, it can also facilitate the exploration of how supercluster properties depend on cosmological parameters, 
+Through its connection with linear theory, it can also facilitate the exploration of how supercluster properties depend on cosmological parameters, 
 paving the way to use superclusters as cosmological probes.
 \end{abstract}
 
@@ -120,7 +120,7 @@ This Letter is structured as follows.
 In Section \ref{sec:divergence} we present the way we characterize the velocity divergence fields.
 Next, in Section \ref{sec:watershed}, we describe the supercluster finding algorithm.
 In Section \ref{sec:fields} we describe how we generate divergence fields on a grid to test our definitions and supercluster finding algorithm.
-In Section \ref{sec:results} we present our main results to finally conclude in Section \ref{sec:conclusion} with future applications of the results presented here.
+In Section \ref{sec:results} we present our main results to finally conclude in Section \ref{sec:conclusion} with future applications of the framework presented here.
 
 
 
@@ -149,7 +149,7 @@ Computationally speaking, we compute the autocorrelation function in the interva
 \label{eq:autocorrelation}
 \end{equation}
 
-We show in the following sections how by using this definition we obtain a linear relationship between the autocorrelation length, $R_{\delta\delta}$, and the average super-cluster size.
+We show in the following sections how by using this definition we obtain a linear relationship between the autocorrelation length, $R_{\delta\delta}$, and the average supercluster size.
 
 
 \begin{table*}
@@ -286,7 +286,7 @@ Beyond that scale, the Gaussian fields continue that linearity up to $R_{\delta\
     \centering
     \includegraphics[width=220pt]{summary_watershed.pdf}
     \caption{Average equivalent radius as a function of the autocorrelation length in their parent divergence field.
-    The relationship between the two quantities is close to linear for autocorrelation lengths below $100$ \Mpch. \label{fig:money_plot}}
+    The relationship between the two quantities is close to linear for autocorrelation lengths between $10$ \Mpch and $100$ \Mpch. \label{fig:money_plot}}
 \end{figure}
 
 
@@ -305,25 +305,25 @@ Our most important result is summarized in Figure \ref{fig:money_plot}.
 The plot shows that 
 the average supercluster size linearly follows the the autocorrelation length as defined in Equation \ref{eq:autocorrelation}.
 The linear correlations holds both for Gaussian and N-body fields over one order of magnitude from $10$\Mpch up to $100$\Mpch.
-In other words, the autocorrelation formalism over the velocity divergence fields is able to estimate the typical super-cluster size.
+In other words, the autocorrelation formalism over the velocity divergence fields is able to estimate the typical supercluster size.
 We parameterize this strong linear dependence  as 
-$\langle R_{\rm{eq}}\rangle=\alpha R_{\delta\delta}$, the best fit gives $\alpha=1.2\pm0.1$ for Gaussian fields and $\alpha=0.9\pm 0.1$ for N-body fields.
+$\langle R_{\rm{eq}}\rangle=\alpha R_{\delta\delta}$, the best fit gives $\alpha=1.38\pm0.03$ for Gaussian fields and $\alpha=0.93\pm 0.01$ for N-body fields.
 
-This linear scaling relation with $\alpha\approx 1$ depends on the constant used in the definition (Equation \ref{eq:autocorrelation}). 
+This linear scaling relation with $\alpha\approx 1$ depends on the constant used in the definition in Equation \ref{eq:autocorrelation}). 
 Using values larger than $1/10$ in that definition breaks the linear scaling above $R_{\delta\delta}\approx 40$\Mpch for N-body fields. 
 Furthermore, the regions where the linear scaling still holds, show values of $\alpha$ smaller than unity. 
 Using values smaller than $1/10$ also breaks the linearity. 
-It also has the inconvenient of probing the region where the autocorrelation might oscillate, making ambiguous the autocorrelation length definition.
+It also has the inconvenient of probing scales where the autocorrelation function might oscillate, making ambiguous the autocorrelation length definition.
     
 We finalize this Section by showing how the supercluster size distribution differs in Gaussian fields compared to the N-body fields.
 Figure \ref{fig:Nclusters} shows the probability density function for the equivalent radius distributions from two different divergence fields.
-We pick these two distributions because they have a similar mean value $\approx80$\Mpch. 
-However, the distribution in the N-body field is wider than it is for the Gaussian field, meaning that there are more super-clusters with values well above/below the average in the non-linear divergence field than in the Gaussian field. 
+We pick these two distributions because they have a similar mean value $\approx80$\Mpch close to Laniakea's radius. 
+However, the distribution in the N-body field is wider than it is for the Gaussian field, meaning that there are more superclusters with values well above/below the average in the non-linear divergence field than in the Gaussian field. 
 
 
-What does these results have to say about observations?
+What does these results have to say about Laniakea?
 The horizontal stripe in Figure \ref{fig:money_plot} shows recent estimates of Laniakea's equivalent radius. 
-If Laniakea is to be considered as an average supercluster, then our results predict that the autocorrelation length in the divergence fields from the Cosmicflows data should be on the order of 65 to 90 \Mpch.
+If Laniakea is to be considered as an average supercluster, then our results predict that the autocorrelation length in the divergence fields from the Cosmicflows data should be on the order of 60 \Mpch to 85 \Mpch.
 Having a measurement of the autocorrelation length on the divergence field from Cosmicflows-2, would allow to quantify to what extent it is a typical supercluster in a cosmological context.
  
 
@@ -340,12 +340,10 @@ We tested this picture using different velocity divergence fields (Gaussian fiel
 
 We found a linear scaling relation between the average supercluster size and the autocorrelation length. 
 This result holds for one order of magnitude from $10$\Mpch up to $100$\Mpch.
-We also compared the supercluster size distribution in the Gaussian and N-body divergence fields. The two  field types had in common that their average supercluster size was close to the value reported for Laniakea.
-We found that the distributions are narrower and more symmetric in the Gaussian field.
-
+Comparing the full size distribution in the Gaussian and N-body divergence fields (selected to have average supercluster size similar to Laniakea) we found that the distributions are narrower and more symmetric in the Gaussian field.
 
 The concepts we have presented here are straightforward to apply both to observational data and simulations.
-For instance the velocity divergence field has already been used in CosmicFlows-2 reconstruction data to define cosmic web elements \citep{2015MNRAS.452.1052L}. 
+For instance the velocity divergence field has already been used in CosmicFlows-2 reconstruction data to define cosmic web elements \citep{2015MNRAS.452.1052L} and could thus be used to find superclusters and compute its autocorrelation length.
 
 Future work on superclusters using this framework includes studying scaling relations between sizes, 3D shapes, maximum divergence depth and its dark matter or galaxy populations.
 Another line for future work is the cosmological exploration using superclusters.
