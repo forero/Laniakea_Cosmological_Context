@@ -55,7 +55,7 @@ Superclusters are a convenient way to partition and characterize the large scale
 In this Letter we explore the strengths of defining superclusters as watershed basins in the divergence velocity field.
 We apply this definition on diverse datasets generated from linear theory and  N-body simulations, with different grid sizes, smoothing scales and types of tracers.
 From this framework emerges a linear scaling relation between the average supercluster size and the autocorrelation length in the divergence field, a result that holds for one order of magnitude from 10 \Mpch up to 100 \Mpch.
-Our results suggest that the divergence-based definition provides a robust context to quantitatively compare results across different observational or computational frameworks. 
+These results suggest that the divergence-based definition provides a robust context to quantitatively compare results across different observational or computational frameworks. 
 Through its connection with linear theory, it can also facilitate the exploration of how supercluster properties depend on cosmological parameters, 
 paving the way to use superclusters as cosmological probes.
 \end{abstract}
@@ -74,45 +74,25 @@ cosmology: large-scale structure of Universe
 \section{Introduction}
 % La introduccion y el abstract es lo ultimo que se escribe.
 
+Superclusters are the largest structures that can be discriminated on the large scale structure of the Universe. 
+From the early studies \citep{1983ARA&A..21..373O} through the most recent efforts to define our home supercluster Laniakea \citep{2014Natur.513...71T} a great variety of superclusters definitions have been proposed and explored, mostly motivated by the improvements in observational techniques and advances in computational models. 
 
-In 2014 astronomers used a peculiar velocities map  to 
-define the Laniakea supercluster of galaxies
-\citep{2014Natur.513...71T}.  
-Their main input was the Cosmicflows-2 catalog of distances and radial
-velocities that provide them with coverage of distances up to 400 Mpc
-\citep{2013AJ....146...86T}. 
-By applying a Wiener reconstruction  \citep{Zaroubi_1999} they obtained the
-reconstruction of the 3-dimensional velocity field. 
-From this reconstructions they manually defined our local galaxy supercluster, Laniakea, as the region of inflowing peculiar velocities that include the Milky Way. 
 
-Since then a great variety of supercluster definitions have been suggested and implemented to define superclusters. 
-\cite{2015A&A...575L..14C} defined superclusters from an overdensity criterion to select regions that will collapse in the future.
-Under that criterion Laniakea is not considered a supercluster given that its average density is slightly below the cosmic mean.
-Later, \cite{Bagchi_2017} used percolation analysis on N-body simulations to find superclusters. 
-Their algorithmic definition was based on the Friends-of-Friends algorithm.
-From that framework they reported on the discovery of Saraswati, a large supercluster with a wall-like structure extending over $200$ Mpc.
-\cite{Einasto_2019} defined superclusters from varying cuts in a density field. 
-They interpolated the dark matter density field on a grid, smoothed it with a gaussian filter and then reported on the different supercluster properties.
+Supercluster definitions span a broad conceptual range that includes: the manual segmentation of peculiar velocity fields  \citep{2014Natur.513...71T}, matter overdensity thresholds \citep{2015A&A...575L..14C}, percolation properties \citep{Bagchi_2017}, thresholds on multi-scale density fields \citep{Einasto_2019}, streamlines in the peculiar velocity data \citep{Dupuy_2019} and multi-scale group connectivity \citep{2020A&A...641A.172E}, among others.
+In general, all these definitions are different even if they operate on the same inputs. 
+This means that the cross-algorithm comparison of supercluster properties, even as simple as their sizes, has to be done with caution.
 
-More recently \cite{Dupuy_2019} used streamlines in the peculiar velocity data to define 
-superclusters. 
-They tracked streamlines in space to define gravitational basins of attraction/repulsion.
-This algorithm allowed an automatic partition to define Laniakea's boundary without manual intervention.
-The algorithm involved the application of a
-fourth order Runge-Kutta method. 
-In this way, obtaining structures using this method is influenced by the choice of the integration parameters. 
-Two more free parameters are involved in this computation: the streamline length and the number of streamlines ending on a vortex required to define a gravitational basin.
+A common feature in most of these studies is that the supercluster properties depend on the physical scale used to describe the
+underlying density or velocity fields.
+For instance, \cite{Dupuy_2020} reported strong changes in the supercluster abundance as a function of the smoothing scale used to define the velocity field.
+\cite{2011A&A...531A.149S} also performed controled numerical experiments to measure how the cosmic web features, such as filaments, clusteras and voids, depend on the density perturbations at different scales.
 
-\cite{Dupuy_2020} studied the influence of the details in
-the algorithm parameters on the detected gravitational basins.
-The influence of a smoothing parameter was a focus of their interest. 
-They reported strong changes in the supercluster abundance as a function of the smoothing scale.
-However, a more detailed inspection of these trends, together with a study of how velocity interpolation from different kinds of tracers impacts the results, was left for future work.
+Furthermore, the complexity in the algorithm used to actually find the superclusters in simulated or observed data also has an impact on the intepretation of the results.
+A large number of free parameters could produce a large variability on the detected superclusters and raise the question as to what are the optimal combination of parameters values to define the superclusters \citep{Dupuy_2020}.
 
-In this Letter we present another framework to define, study and understand superclusters. 
-The supercluster definition is based on the velocity divergence field, while
-the supercluster finding algorithm is based on the watershed concept.
-We show in this Letter how this definition helps us to reach a quantitative understanding of how the supercluster properties depend on the smoothing scale while also providing a handle to tie superclusters properties to the underlying cosmology.
+
+In this Letter we present a conceptual framework that allows us to reach a quantitative understanding of how the supercluster properties depend on the smoothing scale and have a supercluster finding algorithm with low complexity.
+The supercluster definition is based on the velocity divergence field while the supercluster finding algorithm uses a watershed concept.
 
 This Letter is structured as follows.
 In Section \ref{sec:divergence} we present our characterization of the velocity divergence field.
@@ -140,14 +120,16 @@ From this power spectrum we calculate the autocorrelation function as
     \xi_{\delta\delta} (r) = \frac{1}{2\pi^2}\int_{0}^{\infty} k^2 P_{\delta}(k)\frac{\sin kr}{kr} dk.
 \end{equation}
 
-From the autocorrelation function we define a coherence length, $R_{\delta\delta}$, as the value of $r$ at which $\xi_{\delta\delta}(r)$ drops by a factor of ten from the value it has for $r\rightarrow0$. 
-Computationally speaking, we compute the autocorrelation function in the interval $1\Mpch \leq r \leq 100 \Mpch$ and $R_{\delta\delta}$ is defined by the value at which
+From the autocorrelation function we define the autocorrelation length, $R_{\delta\delta}$, as the value of $r$ at which $\xi_{\delta\delta}(r)$ drops by a factor of ten from the value it has for $r\rightarrow0$. 
+In practice, we compute the autocorrelation function in the interval $1\Mpch \leq r \leq 100 \Mpch$ and $R_{\delta\delta}$ is defined by the value at which
 \begin{equation}
 \xi_{\delta\delta}(R_{\delta\delta})  =\frac{1}{10} \xi_{\delta\delta}(1 \Mpch).    
 \label{eq:autocorrelation}
 \end{equation}
 
 We show in the following sections how by using this definition we obtain a linear relationship between the autocorrelation length, $R_{\delta\delta}$, and the average supercluster size.
+
+
 
 
 \begin{table*}
@@ -166,6 +148,15 @@ The Field type describes whether the field comes from the Abacus Simulations (N-
 $L_b$ is the box size of the cubic volume used to compute the divergence. $R_{s}$ lists the gaussian smoothing (in the case of N-body fields) and the wavelength $1/R_s$ used to truncate the power spectrum (in the case of Gaussian fields). $N_c$ is the number of grid voxels on a side of the interpolated density field.}
 \label{table:values}
 \end{table*}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=250pt]{example_watershed.pdf}
+    \caption{Slice across a 3D dimensionless divergence field (in colour) showing the supercluster boundaries (in black) found by the watershed algorithm. 
+    The divergence field is a gaussian field with a truncation scale of $R_s=10$ Mpc $h^{-1}$ and $360^3$ voxels.}
+    \label{fig:illustration}
+\end{figure}
 
 
 \begin{figure*}
@@ -194,7 +185,7 @@ $L_b$ is the box size of the cubic volume used to compute the divergence. $R_{s}
 \section{Watershed Superclusters}
 \label{sec:watershed}
 
-We find the superclusters using a watershed algorithm \citep{BeucherWatershed1979} on the dimensionless divergence fields.
+We find the superclusters using a watershed algorithm \citep{beucher1993morphological} on the dimensionless divergence fields.
 The algorithm segments the whole volume by assigning each voxel to a unique supercluster. 
 
 Our implementation works as follows. 
@@ -216,6 +207,9 @@ The algorithm has a single free parameter: the number of neighbors to make the s
 In our case we use $26$, but our tests show that using lower values down to $6$ neighbors do not impact the main scaling results reported in this Letter. 
 A lower number of neighbors only results in a larger tail of small superclusters composed by a handful of voxels.
 
+Figure \ref{fig:illustration} illustrates the results of the watershed algorithm. 
+This shows how the typical supercluster size follows the typical size of the features in the divergence field.
+
 
 \section{Divergence Fields on a Grid}
 \label{sec:fields}
@@ -232,6 +226,7 @@ We use a total of $30$ different divergence fields, summarized in Table \ref{tab
 
 We start by generating a density field with a power spectrum that follows no-wiggle parameterization of \cite{1998ApJ...496..605E}.
 The power spectrum is extrapolated at $z=0$ using linear theory and truncated at $k_{\rm max}=1/R_s$.
+This procedure can be thought as erasing fluctuation features smaller than the scale of $R_s$.
 This density field is generated over a cubic grid with $N_c^3$ voxels over a cube of length $L_s$ on a side.
 From this Gaussian density field we compute  the overdensity and directly use it as the dimensionless divergence field.
 We generate $15$ different Gaussian fields by changing the values for $L_b$, $N_c$ and $R_s$. 
@@ -240,7 +235,7 @@ Table \ref{table:values} summarizes the different values for those parameters.
 \subsection{N-body fields from biased tracers with Gaussian smoothing}
 
 We use the public Friend-of-Friends catalogs at redshift $z=0.1$
-from the Abacus Project simulations to interpolate the haloes' peculiar velocity over a grid with $N_s^3$ voxels.
+from the Abacus Project simulations \citep{2018ApJS..236...43G} to interpolate the haloes' peculiar velocity over a grid with $N_s^3$ voxels.
 The simulations were performed on a cube of side length $720$\ \Mpch with
 $1440^3$ particles, corresponding to a DM particle mass resolution of $\sim 1 \times 10^{10}$ \Msun.
 We start by selecting haloes with maximum circular velocity larger
@@ -253,13 +248,6 @@ Table \ref{table:values} summarizes the different values for those parameters.
 
 \begin{figure}
     \centering
-    \includegraphics[width=250pt]{example_watershed.pdf}
-    \caption{Caption}
-    \label{fig:my_label}
-\end{figure}
-
-\begin{figure}
-    \centering
     \includegraphics[width=220pt]{correlation_length.pdf}
     \caption{Correlation length $R_{\delta\delta}$ as a function of the truncation scale $R_s$.
     Both for Gaussian and N-body fields the relationship between the two scales is close to linear below $R_{s}=20$ \Mpch.}
@@ -269,16 +257,9 @@ Table \ref{table:values} summarizes the different values for those parameters.
 \section{Results}
 \label{sec:results}
 
-We start by illustrating the differences between the Gaussian and N-body divergence fields.
-Figure \ref{fig:gaussian} shows the power spectrum and the autocorrelation function for five different Gaussian fields generated over a box with side $L_b=1000$ \Mpch and $100^3$ voxels.
-The five different curves correspond to different wavelength cuts in the power spectrum  $1/R_s$, with $R_s$ in the range from 10 to 40 \Mpch.
-The right panel in the Figure \ref{fig:gaussian} shows that the autocorrelation length increases with larger $R_{s}$ values.
-
-Figure \ref{fig:nbody} shows the power spectrum and autocorrelation function for N-body fields generated 
-from dark matter haloes with a maximum circular velocity larger than $300$ \kms, with their peculiar velocities interpolated over on a cubic mesh of side $L_b=720$ \hMpc and  $360^3$ voxels.
-Each curve corresponds to a different scale $R_s$ for the Gaussian smoothing filter.
-In this case, the overall normalization of the power spectra is smaller compared to the normalization in the Gaussian fields, as it is expected from the nature of the biased tracers.
-Nevertheless, the right panel confirms that the autocorrelation length also increases for larger $R_{s}$ values.
+We start by quantifying the effect of the truncation/smoothing scale.
+Figure \ref{fig:gaussian} and Figure \ref{fig:nbody} show the power spectrum and the corresponding autocorrelation function.
+In both cases, the right panel shows that the autocorrelation length increases with larger $R_{s}$ values.
 
 Figure \ref{fig:correlation length} shows the relationship between the truncation/smoothing scale $R_s$ and the autocorrelation length $R_{\delta\delta}$.
 We find that below $R_{s} < 20$\Mpch the two scales almost follow a linear proportionality.
@@ -306,7 +287,7 @@ Beyond that scale, the Gaussian fields continue that linearity up to $R_{\delta\
 
 Our most important result is summarized in Figure \ref{fig:money_plot}.
 The plot shows that 
-the average supercluster size linearly follows the the autocorrelation length as defined in Equation \ref{eq:autocorrelation}.
+the average supercluster size linearly follows the autocorrelation length as defined in Equation \ref{eq:autocorrelation}.
 The linear correlations holds both for Gaussian and N-body fields over one order of magnitude from $10$\Mpch up to $100$\Mpch.
 In other words, the autocorrelation formalism over the velocity divergence fields is able to estimate the typical supercluster size.
 We parameterize this strong linear dependence  as 
@@ -321,7 +302,7 @@ It also has the inconvenient of probing scales where the autocorrelation functio
 We finalize this Section by showing how the supercluster size distribution differs in Gaussian fields compared to the N-body fields.
 Figure \ref{fig:Nclusters} shows the probability density function for the equivalent radius distributions from two different divergence fields.
 We pick these two distributions because they have a similar mean value $\approx80$\Mpch close to Laniakea's radius. 
-However, the distribution in the N-body field is wider than it is for the Gaussian field, meaning that there are more superclusters with values well above/below the average in the non-linear divergence field than in the Gaussian field. 
+However, the distribution in the N-body field is wider (standard deviation) than it is for the Gaussian field (standard deviation), meaning that there are more superclusters with values well above/below the average in the non-linear divergence field than in the Gaussian field. 
 
 
 What does these results have to say about Laniakea?
@@ -343,7 +324,7 @@ We tested this picture using different velocity divergence fields (Gaussian fiel
 
 We found a linear scaling relation between the average supercluster size and the autocorrelation length. 
 This result holds for one order of magnitude from $10$\Mpch up to $100$\Mpch.
-Comparing the full size distribution in the Gaussian and N-body divergence fields (selected to have average supercluster size similar to Laniakea) we found that the distributions are narrower and more symmetric in the Gaussian field.
+Comparing the full size distribution in the Gaussian and N-body divergence fields, selected to have average supercluster size similar to Laniakea, we found that the distributions are narrower and more symmetric in the Gaussian field.
 
 The concepts we have presented here are straightforward to apply both to observational data and simulations.
 For instance the velocity divergence field has already been used in CosmicFlows-2 reconstruction data to define cosmic web elements \citep{2015MNRAS.452.1052L} and could thus be used to find superclusters and compute its autocorrelation length.
@@ -352,8 +333,14 @@ Future work on superclusters using this framework includes studying scaling rela
 Another line for future work is the cosmological exploration using superclusters.
 Using this framework one could estimate (via linear theory) the dependence of supercluster properties on cosmological parameters and its redshift evolution.
 
-Finally, the link between divergence based superclusters and graph properties \citep{2020MNRAS.tmpL.153G} computed on top of the galaxy spatial distribution provides not only a potential way to define superclusters where velocity information is not available, but also a possible approach to quantify the relationship between large scale structure topology and dynamics.
+Finally, the link between divergence based superclusters and graph properties \citep{2020MNRAS.498L.145G} computed on top of the galaxy spatial distribution provides not only a potential way to define superclusters where velocity information is not available, but also a possible approach to quantify the relationship between large scale structure topology and dynamics.
 
+-sizes obtained with two definitions
+of superclusters could be shortly compared.
+
+Does the linearity between scales in Fig. 4. depend on the box size?
+Could the scale up to which linearity holds
+be related to the characteristic scale found in thesupercluster distribution
 
 \section*{Data Availability Statement}
 The N-body data used to build the interpolated divergence fields are available through \url{https://lgarrison.github.io/AbacusCosmos/}. 
