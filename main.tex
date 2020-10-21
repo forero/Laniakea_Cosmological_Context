@@ -6,6 +6,7 @@
 \usepackage{amsmath}	% Advanced maths commands
 \usepackage{amssymb}	% Extra maths symbols
 \usepackage{array}
+\usepackage{physics}
 
 \usepackage{multirow}
 \usepackage{multicol}
@@ -24,7 +25,7 @@
     {J. D. Pe\~naranda-Rivera $^1$,} 
     {D. L. Paipa-Le\'on$^{1}$,}
     {S. D. Hern\'andez-Charpak$^{1,2}$,}\\
-    {J. E. Forero-Romero $^{1}$}
+    {J. E. Forero-Romero $^{1}$\thanks{E-mail: je.forero@uniandes.edu.co}}
 }
 \\\\
 $^{1}$ Departamento de F\'isica, Universidad de los Andes, Cra. 1
@@ -77,7 +78,7 @@ cosmology: large-scale structure of Universe
 Superclusters are the largest structures that can be discriminated on the large scale structure of the Universe. 
 From the early studies \citep{1983ARA&A..21..373O} through the most recent efforts to define our home supercluster Laniakea \citep{2014Natur.513...71T} a great variety of superclusters definitions have been proposed and explored, mostly motivated by the improvements in observational techniques and advances in computational models. 
 
-Supercluster definitions span a broad conceptual range that includes: the manual segmentation of peculiar velocity fields  \citep{2014Natur.513...71T}, matter overdensity thresholds \citep{2015A&A...575L..14C}, percolation properties \citep{Bagchi_2017}, thresholds on multi-scale density fields \citep{Einasto_2019}, streamlines in the peculiar velocity data \citep{Dupuy_2019} and multi-scale group connectivity \citep{2020A&A...641A.172E}, among others.
+Supercluster definitions span a broad conceptual range that includes: the manual segmentation of peculiar velocity fields  \citep{2014Natur.513...71T}, matter overdensity thresholds \citep{2015A&A...575L..14C}, percolation properties \citep{Bagchi_2017}, thresholds on multi-scale density fields \citep{Einasto_2019,2020A&A...641A.172E} and streamlines in the peculiar velocity data \citep{Dupuy_2019}, among others.
 In general, all these definitions are different even if they operate on the same inputs. 
 This means that the cross-algorithm comparison of supercluster properties, even as simple as their sizes, has to be done with caution.
 
@@ -334,12 +335,12 @@ The concepts we have presented here are straightforward to apply both to observa
 For instance the velocity divergence field has already been used in CosmicFlows-2 reconstruction data to define cosmic web elements \citep{2015MNRAS.452.1052L} and could thus be used to find superclusters and compute its autocorrelation length.
 
 
-There are multiple questions and directions that could be addressed in future work. 
-For instance, measuring to what extent the linearity between scales  in Figure \ref{fig:correlation length} depends on the box size, or comparing supercluster sizes as computed from different definitions that take the similar data as an input.
-As an application of our results we would give priority to studying scaling relationships between sizes, 3D shapes, maximum divergence depth, and studying (via linear theory) the dependence of supercluster properties on cosmological parameters and its redshift evolution.
+There are multiple directions that could be addressed in future work. 
+For instance, measuring to what extent the linearity between scales  in Figure \ref{fig:correlation length} depends on the box size, comparing supercluster sizes from different definitions that take similar data as an input \citep{2020A&A...641A.172E}, finding scaling relationships between sizes, 3D shapes, maximum divergence depth, and the dependence of supercluster properties on cosmological parameters together with its redshift evolution.
 
-
-Finally, the link between divergence based superclusters and graph properties \citep{2020A&A...641A.172E, 2020MNRAS.498L.145G} computed on top of the galaxy spatial distribution provides not only a potential way to define superclusters where velocity information is not available, but also a possible approach to quantify the relationship between large scale structure topology and dynamics.
+Finally, studying the link between divergence based superclusters, their density field \citep{2020A&A...641A.172E}
+and graph properties \citep{2020MNRAS.498L.145G}
+ computed on top of the galaxy spatial distribution could provide a potential way to define superclusters where velocity information is not available and also quantifying the relationship between large scale structure topology and dynamics.
 
 
 \section*{Data Availability Statement}
